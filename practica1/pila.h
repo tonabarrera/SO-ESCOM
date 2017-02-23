@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+//Creo que esta esctructura puede servir para el de los parentesis y el de la expresion
 struct Nodo {
   int dato;
   struct Nodo *siguiente;
