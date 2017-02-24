@@ -1,0 +1,6 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Competencias}{2}
+\contentsline {section}{\numberline {2}Desarrollo}{3}
+\contentsline {section}{\numberline {3}An\IeC {\'a}lisis}{4}
+\contentsline {section}{\numberline {4}Observaciones}{5}
+\contentsline {section}{\numberline {5}Conclusiones}{6}

@@ -1,0 +1,43 @@
+% !TeX spellcheck = es_ES
+\documentclass[12pt, titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[letterpaper, margin=2.5cm]{geometry}
+\usepackage{float}
+\usepackage{graphicx} 
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{RGB}{253,151,31}
+
+\lstset{frame=tb,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+
+\title{Reporte práctica 1}
+\author{Arteaga Lara Samuel \\Barrera Pérez Carlos Tonatihu \\ Gis  \\ Profesor: Cortez Galicia Jorge \\ Sistemas operativos \\ Grupo: 2CM7 }
+\date{27 de enero de 2016}
+\begin{document}
+	\maketitle
+	\tableofcontents
+	
+	\include{competencias}
+	\include{desarrollo}
+	\include{analisis}
+	\include{observaciones}
+	\include{conclusiones}
+\end{document}
