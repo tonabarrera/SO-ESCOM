@@ -9,14 +9,7 @@ void iniciar_pila(struct Pila **pila, char nombre) {
     return;
 }
 
-int vacio(struct Pila *pila){
-    if(pila->top == NULL)
-        return 1;
-    else
-        return 0;
-}
-
-int push(struct Pila **pila, int val) {
+int push(struct Pila **pila, char val) {
     struct Nodo *temp = NULL;
     temp = (struct Nodo *) malloc(sizeof(struct Nodo));
     if(temp == NULL)
@@ -29,8 +22,8 @@ int push(struct Pila **pila, int val) {
     return 1;
 }
 
-int pop(struct Pila **pila){
-    int pop = (*pila)->top->dato;
+char pop(struct Pila **pila){
+    char pop_dato = (*pila)->top->dato;
     struct Nodo *temp = NULL;
     temp = (struct Nodo *) malloc(sizeof(struct Nodo));
     if(temp == NULL)
@@ -39,5 +32,5 @@ int pop(struct Pila **pila){
     (*pila)->top = temp->siguiente;
     free(temp);
     temp = NULL;
-    return pop;
+    return pop_dato;
 }

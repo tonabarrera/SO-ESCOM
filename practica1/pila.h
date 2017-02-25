@@ -3,9 +3,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-//Creo que esta esctructura puede servir para el de los parentesis y el de la expresion
+
 struct Nodo {
-  int dato;
+  char dato;
   struct Nodo *siguiente;
 };
 
@@ -14,7 +14,6 @@ struct Pila {
   char nombre;
 };
 void iniciar_pila(struct Pila **, char);
-int push(struct Pila **, int);
-int pop(struct Pila **);
-int vacio(struct Pila *);
+int push(struct Pila **, char);
+char pop(struct Pila **);
 #endif
