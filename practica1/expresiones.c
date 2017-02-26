@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include "pila.h"
 #include "cola.h"
-
 int calcular_total(struct Elemento *caracter);
-int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operadores);
+int reeordenar(char *cadena, struct Cola *salida, struct Pila *operadores);
 
 int main(int argc, char* argv[])
 {
@@ -16,11 +15,10 @@ int main(int argc, char* argv[])
     printf("%s\n", "Inserta una expresion matematica correctamente escrita");
     fflush(stdin);
     fgets (cadena, 100, stdin);
-    reeordenar_expresion(cadena, salida, operadores);
+    reeordenar(cadena, salida, operadores);
     return 0;
 }
-
-int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operadores){
+int reeordenar(char *cadena, struct Cola *salida, struct Pila *operadores){
     int i = 0;
 	while (cadena[i] != '\0'){
     	if(cadena[i] == '(')
@@ -28,8 +26,7 @@ int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operado
     	else if (cadena[i] == ')'){
     		while (!esta_vacio(operadores)){
     			char elemento = pop(&operadores);
-    			if ( elemento == '(')
-    				break;
+    			if ( elemento == '('){ break; }
     			meter(&salida, elemento);
     		}
     	} else if(cadena[i] == '+' || cadena[i] == '-' || cadena[i] == '*' || cadena[i] == '/') {
@@ -53,14 +50,10 @@ int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operado
 				operador = pop(&operadores);
 			}
 			if (operador == '+' || operador == '-' || operador == '*' || operador == '/' || operador == '0'){	
-			} else {
-				push(&operadores, operador);
-			}
+			} else { push(&operadores, operador); }
+			
 			push(&operadores, cadena[i]);
-
-    	} else if((int)cadena[i] != 10){
-			meter(&salida, cadena[i]);
-    	}
+    	} else if((int)cadena[i] != 10){ meter(&salida, cadena[i]); }
     	i++;
     }
     while (!esta_vacio(operadores)){
@@ -70,7 +63,6 @@ int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operado
 	calcular_total(salida->inicio);
 	return 0;
 }
-
 int calcular_total(struct Elemento *caracter){
 	double a = 0;
     double b = 0;

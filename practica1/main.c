@@ -1,7 +1,7 @@
 //BALANCE DE PARENTESIS CON PILAS
 #include <stdio.h>
 #include <stdlib.h>
-#include <Pila.h>
+#include "Pila.h"
 
 //--------------Verifica si la expresión ingresada, está o no balanceada
 int esBalanceada(char expresion[], char abre, char cierra){
@@ -40,7 +40,7 @@ int main(){
 	do{
 		char cadena[100];
 		printf("Ingrese una expresion:\n");
-		gets(cadena);
+		fgets(cadena, 100, stdin);
 	    balanceGeneral(cadena);
 		printf("\n\nPresione 1 para ingresar otra expresion, o cualquier otro numero para finalizar\n");
 		scanf("%d",&repetir);

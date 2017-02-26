@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 #include "pila.h"
-
 int llenar_pila(struct Pila *torre, int N){
     for (; N > 0; N--)
         push(&torre, N+'0');
     return 1;
 }
-
 int hanoi(int N, struct Pila *origen, struct Pila *aux, struct Pila *destino, int conteo){
     conteo++;
     char dato = 0;
@@ -24,19 +22,14 @@ int hanoi(int N, struct Pila *origen, struct Pila *aux, struct Pila *destino, in
     }
     return conteo;
 }
-
 int main(int argc, char *argv[]) {
     struct Pila *torre_A = NULL;
     struct Pila *torre_B = NULL;
     struct Pila *torre_C = NULL;
     int numero_discos = 0;
     int conteo = 0;
-    printf("Ingresa el numero de discos (0<N<10): ");
+    printf("Ingresa el numero de discos: ");
     scanf("%d", &numero_discos);
-    if (numero_discos == 0 || numero_discos>10) {
-        printf("Dije 0<N<10");
-        return 0;
-    }
     iniciar_pila(&torre_A, 'A');
     iniciar_pila(&torre_B, 'B');
     iniciar_pila(&torre_C, 'C');

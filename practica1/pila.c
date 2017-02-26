@@ -33,7 +33,6 @@ int push_double(struct Pila **pila, double val) {
     (*pila)->top = temp;
     return 1;
 }
-
 char pop(struct Pila **pila){
     if (esta_vacio(*pila))
         return '0';
@@ -49,11 +48,9 @@ char pop(struct Pila **pila){
     temp = NULL;
     return pop_dato;
 }
-
 double pop_double(struct Pila **pila){
     if (esta_vacio(*pila))
         return '0';
-    
     double pop_dato = (*pila)->top->dato2;
     struct Nodo *temp = NULL;
     temp = (struct Nodo *) malloc(sizeof(struct Nodo));
@@ -65,7 +62,6 @@ double pop_double(struct Pila **pila){
     temp = NULL;
     return pop_dato;
 }
-
 int esta_vacio(struct Pila *pila) {
     if (pila->top==NULL)
         return 1;
