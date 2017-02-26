@@ -4,7 +4,7 @@ void iniciar_pila(struct Pila **pila, char nombre) {
     *pila = (struct Pila *) malloc(sizeof(struct Pila));
     if(*pila == NULL)
         return;
-    
+
     (*pila)->top = NULL;
     (*pila)->nombre = nombre;
     return;
@@ -37,7 +37,7 @@ int push_double(struct Pila **pila, double val) {
 char pop(struct Pila **pila){
     if (esta_vacio(*pila))
         return '0';
-    
+
     char pop_dato = (*pila)->top->dato;
     struct Nodo *temp = NULL;
     temp = (struct Nodo *) malloc(sizeof(struct Nodo));
@@ -68,8 +68,6 @@ double pop_double(struct Pila **pila){
 
 int esta_vacio(struct Pila *pila) {
     if (pila->top==NULL)
-    {
         return 1;
-    }
     return 0;
 }

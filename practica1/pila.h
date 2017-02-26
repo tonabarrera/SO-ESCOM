@@ -5,14 +5,14 @@
 #include <stdlib.h>
 
 struct Nodo {
-  char dato;
-  double dato2;
-  struct Nodo *siguiente;
+	char dato;
+	double dato2;
+	struct Nodo *siguiente;
 };
 
 struct Pila {
-  struct Nodo *top;
-  char nombre;
+	struct Nodo *top;
+	char nombre;
 };
 void iniciar_pila(struct Pila **, char);
 int push(struct Pila **, char);

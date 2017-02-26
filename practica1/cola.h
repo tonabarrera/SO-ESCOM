@@ -5,13 +5,13 @@
 #include <stdlib.h>
 
 struct Elemento {
-  char dato;
-  struct Elemento *siguiente;
+	char dato;
+	struct Elemento *siguiente;
 };
 
 struct Cola {
-  struct Elemento *inicio;
-  struct Elemento *final;
+	struct Elemento *inicio;
+	struct Elemento *final;
 };
 void iniciar_cola(struct Cola **);
 int meter(struct Cola **, char);

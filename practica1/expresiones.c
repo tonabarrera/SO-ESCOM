@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "pila.h"
 #include "cola.h"
+
 int calcular_total(struct Elemento *caracter);
 int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operadores);
 
