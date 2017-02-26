@@ -2,24 +2,26 @@
 #include <stdlib.h>
 #include "pila.h"
 #include "cola.h"
+int calcular_total(struct Elemento *caracter);
+int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operadores);
 
 int main(int argc, char* argv[])
 {
     char cadena[100];
     struct Pila *operadores = NULL;
     struct Cola *salida = NULL;
-    struct Pila *final = NULL;
-    double a;
-    double b;
     iniciar_pila(&operadores, '0');
-    iniciar_pila(&final, '0');
     iniciar_cola(&salida);
-    int i = 0;
     printf("%s\n", "Inserta una expresion matematica correctamente escrita");
     fflush(stdin);
     fgets (cadena, 100, stdin);
-    while (cadena[i] != '\0'){
-    	printf("El dato es: %d\n", cadena[i]);
+    reeordenar_expresion(cadena, salida, operadores);
+    return 0;
+}
+
+int reeordenar_expresion(char *cadena, struct Cola *salida, struct Pila *operadores){
+    int i = 0;
+	while (cadena[i] != '\0'){
     	if(cadena[i] == '(')
     		push(&operadores, cadena[i]);
     	else if (cadena[i] == ')'){
@@ -56,43 +58,49 @@ int main(int argc, char* argv[])
 			push(&operadores, cadena[i]);
 
     	} else if((int)cadena[i] != 10){
-			printf("%s %c\n", "Metio", cadena[i]);
 			meter(&salida, cadena[i]);
     	}
     	i++;
     }
     while (!esta_vacio(operadores)){
 		char elemento = pop(&operadores);
-    	printf("%s %c\n", "Algo", elemento);
 		meter(&salida, elemento);
 	}
-	struct Elemento *caracter = salida->inicio;
-		while(caracter != NULL){
-			if(caracter->dato == '+'){
-				a = pop_double(&final);
-				b = pop_double(&final);
+	calcular_total(salida->inicio);
+	return 0;
+}
 
-				push_double(&final, b+a);
-			} else if(caracter->dato == '-'){
-				a = pop_double(&final);
-				b = pop_double(&final);
+int calcular_total(struct Elemento *caracter){
+	double a = 0;
+    double b = 0;
+    struct Pila *final = NULL;
+    iniciar_pila(&final, '0');
 
-				push_double(&final, b-a);
-			} else if(caracter->dato == '/'){
-				a =pop_double(&final);
-				b = pop_double(&final);
-				push_double(&final, b/a);
+	while(caracter != NULL){
+		if(caracter->dato == '+'){
+			a = pop_double(&final);
+			b = pop_double(&final);
 
-			} else if(caracter->dato == '*'){
-				a = pop_double(&final);
-				b = pop_double(&final);
-				push_double(&final, b*a);
-			} else {
-				push_double(&final, (caracter->dato)-'0');
-			}
-			caracter = caracter->siguiente;
+			push_double(&final, b+a);
+		} else if(caracter->dato == '-'){
+			a = pop_double(&final);
+			b = pop_double(&final);
+
+			push_double(&final, b-a);
+		} else if(caracter->dato == '/'){
+			a =pop_double(&final);
+			b = pop_double(&final);
+			push_double(&final, b/a);
+
+		} else if(caracter->dato == '*'){
+			a = pop_double(&final);
+			b = pop_double(&final);
+			push_double(&final, b*a);
+		} else {
+			push_double(&final, (caracter->dato)-'0');
 		}
+		caracter = caracter->siguiente;
+	}
 		printf("El total: %lf\n", pop_double(&final));
-
-    return 0;
+		return 0;
 }

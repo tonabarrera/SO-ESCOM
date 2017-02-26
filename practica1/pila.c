@@ -69,7 +69,6 @@ double pop_double(struct Pila **pila){
 int esta_vacio(struct Pila *pila) {
     if (pila->top==NULL)
     {
-        printf("Pila vacia\n");
         return 1;
     }
     return 0;
