@@ -1,8 +1,8 @@
-run:listar_archivos.out
-	./listar_archivos.out
-listar_archivos.out:listar_archivos.o
-	gcc listar_archivos.o -o listar_archivos.out
-listar_archivos.o:listar_archivos.c
-	gcc -c -Wall listar_archivos.c
+run:mostar_copiar.out
+	./mostar_copiar.out
+mostar_copiar.out:mostar_copiar.o
+	gcc mostar_copiar.o -o mostar_copiar.out
+mostar_copiar.o:mostar_copiar.c
+	gcc -c -Wall mostar_copiar.c
 clear:
-	rm listar_archivos.o listar_archivos.out
+	rm mostar_copiar.o mostar_copiar.out
