@@ -1,6 +1,8 @@
-run:crear_archivos.out
-	./crear_archivos.out
-crear_archivos.out:crear_archivos.o
-	gcc crear_archivos.o -o crear_archivos.out
-crear_archivos.o:crear_archivos.c
-	gcc -c -Wall crear_archivos.c 
+run:listar_archivos.out
+	./listar_archivos.out
+listar_archivos.out:listar_archivos.o
+	gcc listar_archivos.o -o listar_archivos.out
+listar_archivos.o:listar_archivos.c
+	gcc -c -Wall listar_archivos.c
+clear:
+	rm listar_archivos.o listar_archivos.out
