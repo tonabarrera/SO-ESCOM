@@ -17,7 +17,6 @@ int mostar_contenido(char *archivo){
 	int archivo_abierto = 0;
 	strtok(archivo, "\n");
 	ssize_t size = obtener_size(archivo, &archivo_abierto);
-	printf("Mostar: --%s-- size %d\n", archivo, size);
 	char buffer[size];
 	int i = 0;
 	strcpy(buffer, "");
@@ -37,7 +36,6 @@ int copiar_archivo(char *archivo, char *nuevo_direcctorio){
 	strtok(nuevo_direcctorio, "\n");
 	
 	ssize_t size = obtener_size(archivo, &archivo_abierto);
-	printf("Copiar: --%s-- size %d\n", archivo, size);
 
 	char buffer[size];
 	strcpy(buffer, "");
@@ -58,7 +56,7 @@ int main(int argc, char *argv[]) {
 	char continuar = 's';
 	char directorio[100];
 	int c;
-	printf("Mostar contenido de un archivo o copiar archivos\n");
+	printf("\nMostar contenido de un archivo o copiar archivos\n");
 	while(continuar == 's'){
 		strcpy(archivo, "");
 		strcpy(directorio, "");
@@ -70,22 +68,22 @@ int main(int argc, char *argv[]) {
     		c = getchar();
 		}while(c != EOF && c != '\n');
 		if (eleccion == 1) {
-			printf("Escribe el nombre del archivo a mostar:\n");
+			printf("\nEscribe el nombre del archivo a mostar:\n");
 			fflush(stdin);
 			fgets(archivo, 100, stdin);
-			printf("Mostrando contenido del archivo %s\n", archivo);
+			printf("\nMostrando contenido del archivo %s\n", archivo);
 			mostar_contenido(archivo);
 		} else if (eleccion == 2) {
-			printf("Escribe el nombre del archivo a copiar: ");
+			printf("\nEscribe el nombre del archivo a copiar: ");
 			fgets(archivo, 100, stdin);
-			printf("Escribe ruta del directorio destino: ");
+			printf("\nEscribe ruta del directorio destino: ");
 			fgets(directorio, 100, stdin);
 			copiar_archivo(archivo, directorio);
 		} else {
-			printf("%s\n", "Accion no valida");
+			printf("\n%s\n", "Accion no valida");
 		}
 		printf("\n");
-		printf("%s\n", "Volver a realizar alguna accion? [s/n]");
+		printf("%s\n\n", "Volver a realizar alguna accion? [s/n]");
 		scanf(" %c", &continuar);
 	}
 	printf("\n");

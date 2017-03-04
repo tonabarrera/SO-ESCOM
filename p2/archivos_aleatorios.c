@@ -50,22 +50,17 @@ int main ( int argc, char* argv[] ){
    printf("Se crearan %d archivos, ingresa el nombre que pondras a tu directorio:\n", numero_arch);
    scanf("%s",nombre_dir);
    mkdir(nombre_dir, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-   chdir(nombre_dir);
+   chdir(nombre_dir);   
 
-for ( i = 0; i < numero_arch; i++) {
-  srand(time(NULL));
-  int contenido = rand()%15;
-
-   int fichero = open (nombre[i], O_CREAT|O_WRONLY,0644); /* Creación y apertura del fichero */
-
-
-   if (fichero==-1){/* Comprobación de errores */
-
-        printf("Error al abrir fichero:");
-        exit(1);
-   }
-   write(fichero, cadena[contenido], strlen(cadena[contenido]));/* Escritura de la cadena */
-   close(fichero);
+   for ( i = 0; i < numero_arch; i++) {
+      int contenido = rand()%15;
+      int fichero = open (nombre[i], O_CREAT|O_WRONLY,0644); /* Creación y apertura del fichero */
+      if (fichero==-1){/* Comprobación de errores */
+         printf("Error al abrir fichero:");
+         exit(1);
+      }
+      write(fichero, cadena[contenido], strlen(cadena[contenido]));/* Escritura de la cadena */
+      close(fichero);
 
    }
    return 0;
