@@ -1,8 +1,8 @@
-run:mostar_copiar.out
-	./mostar_copiar.out
-mostar_copiar.out:mostar_copiar.o
-	gcc mostar_copiar.o -o mostar_copiar.out
-mostar_copiar.o:mostar_copiar.c
-	gcc -c -Wall mostar_copiar.c
+run:permisosArchivo.out
+	./permisosArchivo.out
+permisosArchivo.out:permisosArchivo.o
+	gcc permisosArchivo.o -o permisosArchivo.out
+permisosArchivo.o:permisosArchivo.c
+	gcc -c -Wall permisosArchivo.c
 clear:
-	rm mostar_copiar.o mostar_copiar.out
+	rm permisosArchivo.o permisosArchivo.out

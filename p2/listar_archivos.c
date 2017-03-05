@@ -13,7 +13,6 @@ int main(int argc, char *argv[]) {
 	DIR *direccion;
 	struct dirent *archivo;
 	char path_carpeta[250];
-	char str[250];
 	printf("%s\n", "Listar archivos");
 	printf("%s\n", "¿Qué directorio quieres? (teclea '.' para el actual):");
 	fgets (path_carpeta, 250, stdin);
@@ -26,9 +25,8 @@ int main(int argc, char *argv[]) {
 	printf("Nombre\t\tTamaño (Bytes) \t\t Ultimo accesso \t \n");
 	while((archivo=readdir(direccion)) != NULL){
 		if (strcmp(archivo->d_name, ".") && strcmp(archivo->d_name, "..") ){
-			strcpy(str, path_carpeta);
      		printf("%s\t", archivo->d_name);
-     		stat(strcat(str, archivo->d_name), &datos_archivo);
+     		stat(strcat(path_carpeta, archivo->d_name), &datos_archivo);
 			printf("%ld\t\t\t", datos_archivo.st_size);
 			printf("%s \n", ordenar(ctime(&datos_archivo.st_atim.tv_sec)));
 		}
