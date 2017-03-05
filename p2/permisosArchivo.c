@@ -16,19 +16,15 @@ void cambiarPermisos(char *path){
     strtok(path, "\n");
     int fd = chdir(path);//cambiar de directorio
     int mod, fm;
-    char fichero[25];//nombre del archivo 
-    char path2[255];
+    char path2[255]; // nombre del archivo
     if(fd < 0){  printf("Error el directorio no existe\n");}
     else{
         printf("\nEscriba el nombre del archivo al que quiere cambiar los permisos:\n");
         fflush(stdin);
         strcpy(path2, "");
-        strcpy(fichero, "");
-        fgets(fichero, 25, stdin);
-        strtok(fichero, "\n");
-        fflush(stdin);
-        strcat(path2, fichero);//A la ruta resultante le concatena el archivo
-        mod = menuPermisos();//mod= bits del modo elegido
+        fgets(path2, 25, stdin);
+        strtok(path2, "\n");
+        mod = menuPermisos(); //mod= bits del modo elegido
         fm = chmod(path2, mod);
         if(fm < 0)//Devuelve -1
             printf("\nError.No existe el fichero en el directorio\n");
