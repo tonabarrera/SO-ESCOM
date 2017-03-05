@@ -15,12 +15,13 @@ ssize_t obtener_size(char *archivo, int *archivo_abierto){
 
 int mostar_contenido(char *archivo){
 	int archivo_abierto = 0;
+	int i = 0;
 	strtok(archivo, "\n");
 	ssize_t size = obtener_size(archivo, &archivo_abierto);
 	char buffer[size];
-	int i = 0;
 	strcpy(buffer, "");
 	read(archivo_abierto, buffer, size);
+
 	while ((*(buffer +i) != '\0') && i+1 <=size) {
 		if(*(buffer +i) > 0)
 			printf("%c", *(buffer +i));
@@ -57,6 +58,7 @@ int main(int argc, char *argv[]) {
 	char directorio[100];
 	int c;
 	printf("\nMostar contenido de un archivo o copiar archivos\n");
+
 	while(continuar == 's'){
 		strcpy(archivo, "");
 		strcpy(directorio, "");
@@ -64,9 +66,11 @@ int main(int argc, char *argv[]) {
 		printf("%s\n", "Mostar contenido de un archivo........(1)");
 		printf("%s\n", "Copiar archivos.......................(2)");
 		scanf("%d", &eleccion);
+
 		do{
     		c = getchar();
 		}while(c != EOF && c != '\n');
+		
 		if (eleccion == 1) {
 			printf("\nEscribe el nombre del archivo a mostar:\n");
 			fflush(stdin);

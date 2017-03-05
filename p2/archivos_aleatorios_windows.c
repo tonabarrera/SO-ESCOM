@@ -53,23 +53,19 @@ int main ( int argc, char* argv[] ){
    mkdir(nombre_dir);
    chdir(nombre_dir);
 
-for ( i = 0; i < numero_arch; i++) {
-  srand(time(NULL));
-  int contenido = rand()%15;
+   for ( i = 0; i < numero_arch; i++) {
+      srand(time(NULL));
+      int contenido = rand()%15;
 
-   int fichero = open(nombre[i], O_CREAT|O_WRONLY,0644); /* Creación y apertura del fichero */
+      int fichero = open(nombre[i], O_CREAT|O_WRONLY,0644); /* Creación y apertura del fichero */
 
-
-   if (fichero==-1){/* Comprobación de errores */
-
-        printf("Error al abrir fichero:");
-        exit(1);
-   }
-   write(fichero, cadena[contenido], strlen(cadena[contenido]));/* Escritura de la cadena */
-   close(fichero);
-
+      if (fichero==-1){/* Comprobación de errores */
+         printf("Error al abrir fichero:");
+         exit(1);
+      }
+      write(fichero, cadena[contenido], strlen(cadena[contenido]));/* Escritura de la cadena */
+      close(fichero);
    }
    return 0;
-
 }
 
