@@ -4,6 +4,7 @@ segment .data
     msj3 db "Ingrese la cadena 3", 10
     final db "Cadena final: "
     terminado dd 0
+    salto db 10
 
 segment .bss
     cadena1 resb 150
@@ -106,5 +107,11 @@ _start:
     mov eax, 4
     int 0x80
 
+    mov edx, 1d
+    mov ecx, salto
+    mov ebx, 1
+    mov eax, 4
+    int 0x80
+
     mov eax, 1
-    mov 0x80
+    int 0x80
