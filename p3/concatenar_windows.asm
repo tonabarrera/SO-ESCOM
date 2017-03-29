@@ -75,7 +75,7 @@ _main: push -11
     xor esi, esi
     xor edi, edi
     xor al, al
-    funcionamalditasea:
+    ciclo:
         mov al, [cadena1+edi]
         cmp al, 0
         je prueba
@@ -112,9 +112,9 @@ _main: push -11
         or al, [cadena1+edi]
         or al, [cadena3+edi]
         cmp al, 0
-        je milagro
-        jmp funcionamalditasea
-    milagro:
+        je final
+        jmp ciclo
+    final:
     ; Vamo a ver
     push 0
     push dword msj_bytes2

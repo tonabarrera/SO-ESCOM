@@ -49,12 +49,12 @@ _start:
     mov ecx, cadena3
     mov ebx, 0
     mov eax, 3
-    int 0x80 
+    int 0x80
 
     xor esi, esi
     xor edi, edi
     xor al, al
-    funcionamalditasea:
+    ciclo:
         mov al, [cadena1+edi]
         cmp al, 0
         je prueba
@@ -91,9 +91,9 @@ _start:
         or al, [cadena1+edi]
         or al, [cadena3+edi]
         cmp al, 0
-        je milagro
-        jmp funcionamalditasea
-    milagro:
+        je final
+        jmp ciclo
+    final:
     ; Vamo a ver
     mov edx, 14d
     mov ecx, final
