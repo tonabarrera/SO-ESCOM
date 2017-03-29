@@ -18,6 +18,8 @@ segment .data
     final2 db "Cadena final al revez: "
     terminado dd 0
     longitud dd 0
+    aux db ""
+    longitud_cadena dd 0
     longitud_final dd 0
     caracter db ""
 
@@ -192,138 +194,167 @@ _main: push -11
     push dword [handle_entrada]
     call dword _ReadConsoleA@20
 
-    xor esi, esi
     xor edi, edi
     xor al, al
-    funcionamalditasea:
+    xor esi, esi
+    ciclo1:
         mov al, [cadena1+edi]
         cmp al, 0
-        je prueba
+        je ciclo2
         cmp al, 10
-        je prueba
+        je ciclo2
         cmp al, 13
-        je prueba
+        je ciclo2
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba:
+        jmp ciclo1
+    ciclo2:
+    xor edi, edi
+    xor al, al
+    ciclo2a:
         mov al, [cadena2+edi]
         cmp al, 0
-        je prueba1
+        je ciclo3
         cmp al, 10
-        je prueba1
+        je ciclo3
         cmp al, 13
-        je prueba1
+        je ciclo3
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba1:
+        jmp ciclo2a
+    ciclo3:
+    xor edi, edi
+    xor al, al
+    ciclo3a:
         mov al, [cadena3+edi]
         cmp al, 0
-        je prueba2
+        je ciclo4
         cmp al, 10
-        je prueba2
+        je ciclo4
         cmp al, 13
-        je prueba2
+        je ciclo4
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba2:
+        jmp ciclo3a
+    ciclo4:
+    xor edi, edi
+    xor al, al
+    ciclo4a:
         mov al, [cadena4+edi]
         cmp al, 0
-        je prueba3
+        je ciclo5
         cmp al, 10
-        je prueba3
+        je ciclo5
         cmp al, 13
-        je prueba3
+        je ciclo5
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba3:
+        jmp ciclo4a
+    ciclo5:
+    xor edi, edi
+    xor al, al
+    ciclo5a:
         mov al, [cadena5+edi]
         cmp al, 0
-        je prueba4
+        je ciclo6
         cmp al, 10
-        je prueba4
+        je ciclo6
         cmp al, 13
-        je prueba4
+        je ciclo6
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba4:
+        jmp ciclo5a
+
+    ciclo6:
+    xor edi, edi
+    xor al, al
+    ciclo6a:
         mov al, [cadena6+edi]
         cmp al, 0
-        je prueba5
+        je ciclo7
         cmp al, 10
-        je prueba5
+        je ciclo7
         cmp al, 13
-        je prueba5
+        je ciclo7
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba5:
+        jmp ciclo6a
+
+    ciclo7:
+    xor edi, edi
+    xor al, al
+    ciclo7a:
         mov al, [cadena7+edi]
         cmp al, 0
-        je prueba6
+        je ciclo8
         cmp al, 10
-        je prueba6
+        je ciclo8
         cmp al, 13
-        je prueba6
+        je ciclo8
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba6:
+        jmp ciclo7a
+
+    ciclo8:
+    xor edi, edi
+    xor al, al
+    ciclo8a:
         mov al, [cadena8+edi]
         cmp al, 0
-        je prueba7
+        je ciclo9
         cmp al, 10
-        je prueba7
+        je ciclo9
         cmp al, 13
-        je prueba7
+        je ciclo9
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba7:
+        jmp ciclo8a
+
+    ciclo9:
+    xor edi, edi
+    xor al, al
+    ciclo9a:
         mov al, [cadena9+edi]
         cmp al, 0
-        je prueba8
+        je ciclo10
         cmp al, 10
-        je prueba8
+        je ciclo10
         cmp al, 13
-        je prueba8
+        je ciclo10
         mov [cadena_final+esi], al
+        inc edi
         inc esi
-        inc dword [longitud]
-        prueba8:
+        jmp ciclo9a
+
+    ciclo10:
+    xor edi, edi
+    xor al, al
+    ciclo10a:
         mov al, [cadena10+edi]
         cmp al, 0
-        je prueba9
-        cmp al, 10
-        je prueba9
-        cmp al, 13
-        je prueba9
-        mov [cadena_final+esi], al
-        inc esi
-        inc dword [longitud]
-        prueba9:
-        inc edi
-
-        mov al, [cadena1+edi]
-        or al, [cadena2+edi]
-        or al, [cadena3+edi]
-        or al, [cadena4+edi]
-        or al, [cadena5+edi]
-        or al, [cadena6+edi]
-        or al, [cadena7+edi]
-        or al, [cadena8+edi]
-        or al, [cadena9+edi]
-        or al, [cadena10+edi]
-        cmp al, 0
         je milagro
-        jmp funcionamalditasea
+        cmp al, 10
+        je milagro
+        cmp al, 13
+        je milagro
+        mov [cadena_final+esi], al
+        inc edi
+        inc esi
+        jmp ciclo10a
+
     milagro:
     ; Vamo a ver
-
+    mov [longitud], esi
+    xor esi, esi
+    xor edi, edi
     xor eax,eax
     mov eax, [longitud]
     cosa:
