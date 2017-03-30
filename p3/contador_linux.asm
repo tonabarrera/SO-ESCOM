@@ -12,10 +12,10 @@ _start:
     ;Un poderoso do while
     ciclo:
         mov edx, 2d
-	mov ecx, cadenaImprimir
-	mov ebx, 1
-	mov eax, 4
-	int 0x80
+        mov ecx, cadenaImprimir
+        mov ebx, 1
+        mov eax, 4
+        int 0x80
 
         inc byte [cadenaImprimir] ;Agrega 1 byte al primer byte de nuestro numero
         inc dword [contador] ;Agrega 1 a la direccion de memoria

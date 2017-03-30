@@ -41,7 +41,6 @@ _main: push -11
 
     xor esi, esi
     ciclo:
-        ; Valores raros que agrega la entrada en teclado podria solo dejar una y restar dos pero nah o longitud-=2
         mov al, [cadena+esi]
         cmp al, 0
         je continuar

@@ -437,20 +437,20 @@ _main: push -11
     super_loop:
         lea eax, [esi+edi]
         cmp eax, 0
-        je dios_no
+        je terminar
         cmp eax, 10
-        je dios_no
+        je terminar
         cmp eax, 13
-        je dios_no
+        je terminar
         cmp eax, 32
-        je dios_no
+        je terminar
         push 0
         push dword msj_bytes
         push 1
         push eax
         push dword [handle_salida]
         call _WriteConsoleA@20
-        dios_no:
+        terminar:
         dec edi
         mov al, [esi+edi]
         or al, al

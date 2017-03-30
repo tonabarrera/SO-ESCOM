@@ -1,4 +1,4 @@
-segment data ;Segmento de datos
+segment .data ;Segmento de datos
 cadena db 'Programando en ensamblador para Linux',0xA ;Cadena a imprimir
 segment .text ;Segmento de codigo
 global _start ;Punto de entrada al programa (usado en el enlazador ld)
