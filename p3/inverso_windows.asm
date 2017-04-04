@@ -193,7 +193,7 @@ _main: push -11
     push dword cadena10
     push dword [handle_entrada]
     call dword _ReadConsoleA@20
-
+    ;Ciclos para copiar cada cadena en la cadena final
     xor edi, edi
     xor al, al
     xor esi, esi
@@ -340,17 +340,17 @@ _main: push -11
     ciclo10a:
         mov al, [cadena10+edi]
         cmp al, 0
-        je milagro
+        je final_concatenar
         cmp al, 10
-        je milagro
+        je final_concatenar
         cmp al, 13
-        je milagro
+        je final_concatenar
         mov [cadena_final+esi], al
         inc edi
         inc esi
         jmp ciclo10a
-
-    milagro:
+    ; Se procede a imprimir la longitud
+    final_concatenar:
     ; Vamo a ver
     mov [longitud], esi
     xor esi, esi
@@ -426,7 +426,7 @@ _main: push -11
     push dword final2
     push dword [handle_salida]
     call _WriteConsoleA@20
-
+    ;Aqui se voltea la cadena
     xor edi, edi
     xor esi, esi
     xor al, al
