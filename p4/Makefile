@@ -1,4 +1,4 @@
-codigo=ejercicio4.c
+codigo=ejercicio5.c
 objeto=$(codigo:.c=.o)
 ejecutable=$(codigo:.c=.out)
 
