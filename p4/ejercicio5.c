@@ -72,7 +72,7 @@ int main(int argc, char* argv[]){
                 close(ficheroTras);
                 exit(0);
             } else
-                wait(0);
+                wait(NULL);
         }
         exit(0);
     } else {
