@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <string.h>
 #define col 10
 
-int suma(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]) {
+int sumar(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]) {
     int i, j;
     for (i = 0; i < col; i++) {
         for (j = 0; j < col; j++)
@@ -13,10 +16,10 @@ int suma(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]) 
     return 0;
 }
 
-int resta(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]) {
+int restar(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]) {
     int i, j;
-    for (i = 0; i < col; i++) {
-        for (j = 0; j < col; j++)
+    for (i = 0; i < col; i++)
+        for (j = 0; j < col; j++){
             resultado[i][j] = matrizA[i][j] - matrizB[i][j];
     }
     return 0;
@@ -46,17 +49,35 @@ int multiplicar(int matrizA[col][col], int matrizB[col][col], int resultado[col]
     return 0;
 }
 
+int escribir(int fichero, int matriz[col][col]) {
+    int m, n;
+    char caracter[5];
+    write(fichero, "[\n", 2);
+    for (m=0; m<col; m++){
+        for(n=0; n<col; n++){
+            sprintf(caracter, "%d", matriz[m][n]);
+            write(fichero, caracter, strlen(caracter));
+            write(fichero, " ", 1);
+        }
+        write(fichero, "\n", 1);
+    }
+    write(fichero, "]\n", 2);
+    return 0;
+}
+
 int main(int argc, char* argv[]){
+    int pid;
     int matrizSuma[col][col];
     int matrizResta[col][col];
     int producto[col][col];
-    int traspuesta[col][col];/*
-    int matrizInversa[col][col];*/
+    int traspuestaA[col][col];
+    int traspuestaB[col][col];
+    //int matrizInversa[col][col];
     int matrizA[col][col] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 75, 7, 8, 9, 10},
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
@@ -74,16 +95,50 @@ int main(int argc, char* argv[]){
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 100}
     };
-    suma(matrizA, matrizB, matrizSuma);
-    resta(matrizA, matrizB, matrizResta);
-    trasponer(matrizA, traspuesta);
-    multiplicar(matrizA, matrizB, producto);
-    printf("Valor %d\n", matrizSuma[9][9]);
-    printf("Valor %d\n", matrizResta[3][5]);
-    printf("Valor %d\n", traspuesta[4][2]);
-    printf("Producto %d\n", producto[0][0]);
+    pid = fork();
+    if (pid == 0) {
+        int i;
+        for(i=0; i<4; i++){
+            pid = fork();
+            if(pid==0 && i==0){
+                printf("%s\n", "Suma");
+                sumar(matrizA, matrizB, matrizSuma);
+                int ficheroSuma = open("suma.txt", O_WRONLY|O_CREAT, 0640);
+                escribir(ficheroSuma, matrizSuma);
+                close(ficheroSuma);
+                exit(0);
+            } else if (pid==0 && i==1){
+                printf("%s\n", "Resta");
+                restar(matrizA, matrizB, matrizResta);
+                int ficheroResta = open("resta.txt", O_WRONLY|O_CREAT, 0640);
+                escribir(ficheroResta, matrizResta);
+                close(ficheroResta);
+                exit(0);
+            } else if (pid==0 && i==2){
+                printf("%s\n", "Multiplicacion");
+                multiplicar(matrizA, matrizB, producto);
+                int ficheroMul = open("multiplicacion.txt", O_WRONLY|O_CREAT, 0640);
+                escribir(ficheroMul, producto);
+                close(ficheroMul);
+                exit(0);
+            } else if (pid==0 && i==3){
+                printf("%s\n", "Transpuesta");
+                trasponer(matrizA, traspuestaA);
+                trasponer(matrizB, traspuestaB);
+                int ficheroTras = open("traspuesta.txt", O_WRONLY|O_CREAT, 0640);
+                escribir(ficheroTras, traspuestaA);
+                escribir(ficheroTras, traspuestaB);
+                exit(0);
+            } else
+                wait(0);
+        }
+        exit(0);
+    } else {
+        wait(NULL);
+        printf("%s\n", "Salida");
+    }
     return 0;
 }
 
