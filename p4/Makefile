@@ -1,13 +1,13 @@
-codigo=ejercicio5.c
-libreria=funciones5.c
+codigo=ejemplo6.c
+libreria=hola.c
 objeto=$(codigo:.c=.o)
 lib=$(libreria:.c=.o)
 ejecutable=$(codigo:.c=.out)
 
 run:$(ejecutable)
 	./$(ejecutable)
-$(ejecutable):$(objeto) $(lib)
-	gcc $(objeto) $(lib) -o $@
+$(ejecutable):$(objeto) 
+	gcc $(objeto) -o $@
 $(objeto):$(codigo)
 	gcc -c -Wall $<
 $(lib):$(libreria)
