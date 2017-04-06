@@ -62,11 +62,12 @@ int escribir(int fichero, int matriz[col][col]) {
 }
 
 int imprimir(char *archivo) {
-    int fichero = 0;
-    char cadena[2000];
+    int fichero;
+    char cadena[1];
     fichero = open(archivo, O_RDONLY);
-    read(fichero, cadena, 2000);
-    printf("%s", cadena);
+    while (0 < read(fichero, cadena, 1)) {
+        printf("%s", cadena);
+    }
     close(fichero);
     return 0;
 }

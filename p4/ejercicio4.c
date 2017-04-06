@@ -10,7 +10,7 @@ void prueba(int i, int pid){
         printf("Segundo-%d %d\n", i, getpid());
         pid = fork();
         if (pid == 0) {
-            printf("Tercero-%d %d\n\n", i, getppid());
+            printf("Tercero-%d %d padre: %d\n\n", i, getpid(), getppid());
             exit(0);
         } else
             wait(NULL);
@@ -32,7 +32,7 @@ void prueba2(int i, int pid) {
         for(j=0; j<2; j++){
             pid = fork();
             if(pid == 0){
-                printf("Cuarto-%d-%d %d\n", i, j, getppid());
+                printf("Cuarto-%d-%d %d padre: %d\n", i, j,getpid(), getppid());
                 exit(0);
             } else
                 wait(NULL);
@@ -62,7 +62,7 @@ void prueba3(int i, int pid){
                 for(j=0; j<3; j++){
                     pid = fork();
                     if(pid == 0){
-                        printf("Quinto-%d-%d %d\n", i, j, getppid());
+                        printf("Quinto-%d-%d %d padre: %d\n", i, j, getpid(), getppid());
                         exit(0);
                     } else
                         wait(NULL);
@@ -98,7 +98,7 @@ void prueba4(int i, int pid){
                     for(j=0; j<4; j++){
                         pid = fork();
                         if(pid == 0){
-                            printf("Sexto-%d-%d %d\n", i, j, getppid());
+                            printf("Sexto-%d-%d %d padre: %d\n", i, j, getpid(), getppid());
                             exit(0);
                         } else
                             wait(NULL);
