@@ -9,12 +9,12 @@ int main(int argc, char *argv[]) {
     ZeroMemory(&pi, sizeof(pi));
     if (argc!=2) {
         printf("Usar %s windows2.c\n", argv[0]);
-        return 0;
+        return -1;
     }
 
     if (!CreateProcess(NULL, argv[1], NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
         printf("Fallo al invocar CreateProcess (%d)\n", (int)GetLastError());
-        return 0;
+        return -1;
     }
     printf("Soy el padre\n");
     WaitForSingleObject(pi.hProcess, INFINITE);
