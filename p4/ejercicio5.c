@@ -65,6 +65,16 @@ int escribir(int fichero, int matriz[col][col]) {
     return 0;
 }
 
+int imprimir(char *archivo){
+    int fichero = 0;
+    char cadena[2000];
+    fichero = open(archivo, O_RDONLY);
+    read(fichero, cadena, 2000);
+    printf("%s", cadena);
+    close(fichero);
+    return 0;
+}
+
 int main(int argc, char* argv[]){
     int pid;
     int matrizSuma[col][col];
@@ -137,8 +147,18 @@ int main(int argc, char* argv[]){
         exit(0);
     } else {
         wait(NULL);
+        int fichero = 0;
+        char cadenas[2000];
         printf("%s\n", "Salida");
+        printf("%s\n", "Suma de matrices");
+        imprimir("suma.txt");
+        printf("%s\n", "Resta de matrices");
+        imprimir("resta.txt");
+        printf("%s\n", "Multiplicacion de matrices");
+        imprimir("multiplicacion.txt");
+        printf("%s\n", "Traspuesta de las dos matrices");
+        imprimir("traspuesta.txt");
+        printf("%s\n", "Iversa de matrices");
     }
     return 0;
 }
-
