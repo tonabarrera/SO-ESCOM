@@ -49,6 +49,10 @@ int multiplicar(int matrizA[col][col], int matrizB[col][col], int resultado[col]
     return 0;
 }
 
+int abrir(char *archivo) {
+    return open(archivo, O_WRONLY|O_CREAT, 0640);
+}
+
 int escribir(int fichero, int matriz[col][col]) {
     int m, n;
     char caracter[5];
@@ -115,21 +119,21 @@ int main(int argc, char* argv[]){
             if(pid==0 && i==0){
                 printf("%s\n", "Suma");
                 sumar(matrizA, matrizB, matrizSuma);
-                int ficheroSuma = open("suma.txt", O_WRONLY|O_CREAT, 0640);
+                int ficheroSuma = abrir("suma.txt");
                 escribir(ficheroSuma, matrizSuma);
                 close(ficheroSuma);
                 exit(0);
             } else if (pid==0 && i==1){
                 printf("%s\n", "Resta");
                 restar(matrizA, matrizB, matrizResta);
-                int ficheroResta = open("resta.txt", O_WRONLY|O_CREAT, 0640);
+                int ficheroResta = abrir("resta.txt");
                 escribir(ficheroResta, matrizResta);
                 close(ficheroResta);
                 exit(0);
             } else if (pid==0 && i==2){
                 printf("%s\n", "Multiplicacion");
                 multiplicar(matrizA, matrizB, producto);
-                int ficheroMul = open("multiplicacion.txt", O_WRONLY|O_CREAT, 0640);
+                int ficheroMul = abrir("multiplicacion.txt");
                 escribir(ficheroMul, producto);
                 close(ficheroMul);
                 exit(0);
@@ -137,9 +141,10 @@ int main(int argc, char* argv[]){
                 printf("%s\n", "Transpuesta");
                 trasponer(matrizA, traspuestaA);
                 trasponer(matrizB, traspuestaB);
-                int ficheroTras = open("traspuesta.txt", O_WRONLY|O_CREAT, 0640);
+                int ficheroTras = abrir("traspuesta.txt");
                 escribir(ficheroTras, traspuestaA);
                 escribir(ficheroTras, traspuestaB);
+                close(ficheroTras);
                 exit(0);
             } else
                 wait(0);
@@ -147,8 +152,6 @@ int main(int argc, char* argv[]){
         exit(0);
     } else {
         wait(NULL);
-        int fichero = 0;
-        char cadenas[2000];
         printf("%s\n", "Salida");
         printf("%s\n", "Suma de matrices");
         imprimir("suma.txt");
