@@ -3,6 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <string.h>
 #define col 10
 
 int sumar(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]);
