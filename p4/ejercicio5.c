@@ -11,35 +11,36 @@ int main(int argc, char* argv[]){
     int producto[COL][COL];
     int traspuestaA[COL][COL];
     int traspuestaB[COL][COL];
-    //int matrizInversa[COL][COL];
-    int matrizA[COL][COL] = {
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    double inversaA[COL][COL];
+    double inversaB[COL][COL];
+    double matrizA[COL][COL] = {
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
+        {1, 3, 5, 6, 7, -1, 7, 8, 9, 10},
+        {-1, 2, 3, 4, 5, 0, 7, 8, 9, 1},
+        {0, -2, -3, -9, 0, 2, -4, 1, 6, 3},
+        {1, 4, 3, 0, 5, 6, 5, 5, 9, 10},
+        {1, 0, 6, 4, -5, 4, 7, 8, 9, 1},
+        {11, -2, 7, 4, 15, 6, 3, 3, 0, 1},
+        {10, 2, 8, 4, 0, 1, -7, 8, 1, 10},
+        {3, -2, -3, 4, 0, 6, 7, -8, 9, 10},
+        {2, 2, 3, -4, 9, 6, 7, 8, 9, 10}
     };
-    int matrizB[COL][COL] = {
+    double matrizB[COL][COL] = {
+        {1, 2, 3, 4, 5, 0, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        {1, 2, 3, 4, 5, -6, 7, 8, 9, 10},
+        {1, -2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        {1, 2, 3, 4, 5, 6, 7, 0, 9, 10},
+        {1, -2, 3, 4, 5, 6, 7, 8, 9, 10},
+        {1, 2, 3, 0, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        {1, 2, 3, 4, 5, 6, 7, 8, 9, 100}
+        {1, 2, -3, 4, 5, 6, 7, 8, 9, 1}
     };
     pid = fork();
     if (pid == 0) {
         int i;
-        for(i=0; i<4; i++){
+        for(i=0; i<5; i++){
             pid = fork();
             if(pid==0 && i==0){
                 printf("%s\n", "Suma");
@@ -71,6 +72,15 @@ int main(int argc, char* argv[]){
                 escribir(ficheroTras, traspuestaB);
                 close(ficheroTras);
                 exit(0);
+            } else if (pid==0 && i==4){
+                printf("%s\n", "Inversa");
+                invertir(matrizA, inversaA);
+                //invertir(matrizB, inversaB);
+                int ficheroInv = abrir("inversa.txt");
+                //escribirDouble(ficheroInv, inversaA);
+                //escribirDouble(ficheroInv, inversaB);
+                close(ficheroInv);
+                exit(0);
             } else
                 wait(NULL);
         }
@@ -87,6 +97,7 @@ int main(int argc, char* argv[]){
         printf("%s\n", "Traspuesta de las dos matrices");
         imprimir("traspuesta.txt");
         printf("%s\n", "Iversa de matrices");
+        //imprimir("inversa.txt");
     }
     return 0;
 }

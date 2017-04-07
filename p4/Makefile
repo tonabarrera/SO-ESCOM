@@ -1,5 +1,6 @@
 codigo=ejercicio5.c
 libreria=funciones5.c
+flags=-fno-stack-protector
 objeto=$(codigo:.c=.o)
 lib=$(libreria:.c=.o)
 ejecutable=$(codigo:.c=.out)
