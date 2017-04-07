@@ -6,13 +6,13 @@
 
 int main(int argc, char* argv[]){
     int pid;
-    int matrizSuma[col][col];
-    int matrizResta[col][col];
-    int producto[col][col];
-    int traspuestaA[col][col];
-    int traspuestaB[col][col];
-    //int matrizInversa[col][col];
-    int matrizA[col][col] = {
+    int matrizSuma[COL][COL];
+    int matrizResta[COL][COL];
+    int producto[COL][COL];
+    int traspuestaA[COL][COL];
+    int traspuestaB[COL][COL];
+    //int matrizInversa[COL][COL];
+    int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
     };
-    int matrizB[col][col] = {
+    int matrizB[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},

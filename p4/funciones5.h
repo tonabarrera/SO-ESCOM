@@ -7,15 +7,15 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <string.h>
-#define col 10
+#define COL 10
 
-int sumar(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]);
-int restar(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]);
-int trasponer(int matriz[col][col], int traspuesta[col][col]);
-int multiplicar(int matrizA[col][col], int matrizB[col][col], int resultado[col][col]);
+int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]);
+int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]);
+int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]);
+int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]);
 int abrir(char *);
-int escribir(int, int matriz[col][col]);
+int escribir(int, int matriz[COL][COL]);
 int imprimir(char *);
-int invertir(int matriz[col][col], double inversa[col][col]);
+int invertir(int matriz[COL][COL], double inversa[COL][COL]);
 
 #endif
