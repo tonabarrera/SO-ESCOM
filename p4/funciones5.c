@@ -45,6 +45,38 @@ int abrir(char *archivo) {
     return open(archivo, O_WRONLY|O_CREAT, 0640);
 }
 
+int invertir(int matriz[col][col], int inversa[col][col]) {
+    double A[col][col];
+    int x, y;
+    for ( x = 0; x < col; x++) {
+        for (y = 0; y < col; y++) {
+            A[col][col] = matriz[col][col];
+        }
+    }
+    int i;
+    for (i = 0; i < COL; i++) {
+        if (A[i][i] != 0) {
+            int m, n;
+            double divisor = A[i][i];
+            for (m = 0; m < COL; m++) {
+                A[i][m] = A[i][m]/divisor;
+                inversa[i][m] = inversa[i][m]/divisor;
+            }
+            for(m=0; m<COL;m++){
+                if(m!=i) {
+                    double constante = A[m][i];
+                    for (n = 0; n < COL; n++) {
+                        printf("= %lf - (%lf * %lf)\n", inversa[m][n], inversa[i][n], constante);
+                        A[m][n] = A[m][n]-(A[i][n]*constante);
+                        inversa[m][n] = inversa[m][n] - (inversa[i][n]*constante);
+                    }
+                }
+            }
+        }
+    }
+
+}
+
 int escribir(int fichero, int matriz[col][col]) {
     int m, n;
     char caracter[5];
@@ -71,3 +103,4 @@ int imprimir(char *archivo) {
     close(fichero);
     return 0;
 }
+

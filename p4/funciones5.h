@@ -16,5 +16,6 @@ int multiplicar(int matrizA[col][col], int matrizB[col][col], int resultado[col]
 int abrir(char *);
 int escribir(int, int matriz[col][col]);
 int imprimir(char *);
+int invertir(int matriz[col][col], double inversa[col][col]);
 
 #endif
