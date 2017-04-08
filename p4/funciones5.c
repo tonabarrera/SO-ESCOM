@@ -47,17 +47,16 @@ int abrir(char *archivo) {
 
 int invertir(double aux[COL][COL], double inversa[COL][COL]) {
     int x, y;
-    printf("Hak");
+    printf("Hak\n");
     for (x=0; x<COL; x++){
         for (y=0; y<COL; y++){
-           printf("%lf ", aux[x][y]);
+           printf("%.2lf ", aux[x][y]);
         }
         printf("\n");
     }
     int i;
-    printf("Algo");/*
+    printf("Algo\n");
     for (i = 0; i < COL; i++) {
-        printf("Na");
         if (aux[i][i] != 0) {
             int m, n;
             double divisor = aux[i][i];
@@ -78,7 +77,7 @@ int invertir(double aux[COL][COL], double inversa[COL][COL]) {
         }else {
             printf("ERROR %lf %d %d ", aux[i][i], i, i);
         }
-    }*/
+    }
     return 0;
 }
 

@@ -14,4 +14,4 @@ $(objeto):$(codigo)
 $(lib):$(libreria)
 	gcc -c -Wall $<
 clear:
-	rm $(ejecutable) $(objeto) $(lib)
+	rm $(ejecutable) $(objeto) $(lib) *.txt

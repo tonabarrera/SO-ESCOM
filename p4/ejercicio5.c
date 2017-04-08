@@ -11,7 +11,18 @@ int main(int argc, char* argv[]){
     int producto[COL][COL];
     int traspuestaA[COL][COL];
     int traspuestaB[COL][COL];
-    double inversaA[COL][COL];
+    double inversaA[COL][COL] = {
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+    };
     double inversaB[COL][COL];
     double matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
@@ -77,7 +88,7 @@ int main(int argc, char* argv[]){
                 invertir(matrizA, inversaA);
                 //invertir(matrizB, inversaB);
                 int ficheroInv = abrir("inversa.txt");
-                //escribirDouble(ficheroInv, inversaA);
+                escribirDouble(ficheroInv, inversaA);
                 //escribirDouble(ficheroInv, inversaB);
                 close(ficheroInv);
                 exit(0);
@@ -97,7 +108,7 @@ int main(int argc, char* argv[]){
         printf("%s\n", "Traspuesta de las dos matrices");
         imprimir("traspuesta.txt");
         printf("%s\n", "Iversa de matrices");
-        //imprimir("inversa.txt");
+        imprimir("inversa.txt");
     }
     return 0;
 }
