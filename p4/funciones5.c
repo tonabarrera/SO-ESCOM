@@ -1,5 +1,5 @@
 #include "funciones5.h"
-int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
+int sumar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++) {
         for (j = 0; j < COL; j++)
@@ -8,7 +8,7 @@ int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL])
     return 0;
 }
 
-int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
+int restar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++)
         for (j = 0; j < COL; j++){
@@ -17,7 +17,7 @@ int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]
     return 0;
 }
 
-int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]) {
+int trasponer(double matriz[COL][COL], int traspuesta[COL][COL]) {
     int i, j;
     for(i=0;i<COL; i++){
         for(j=0; j<COL; j++)
@@ -26,7 +26,7 @@ int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]) {
     return 0;
 }
 //Tal vez sea mejor si uso recursion
-int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
+int multiplicar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j, k;
     int valor = 0;
     for(i=0; i<COL; i++){
@@ -45,15 +45,17 @@ int abrir(char *archivo) {
     return open(archivo, O_WRONLY|O_CREAT, 0640);
 }
 
-int invertir(int matriz[COL][COL], int inversa[COL][COL]) {
-    double aux[COL][COL];
+int invertir(double aux[COL][COL], double inversa[COL][COL]) {
     int x, y;
-    for ( x = 0; x < COL; x++) {
-        for (y = 0; y < COL; y++) {
-            aux[COL][COL] = matriz[COL][COL];
+    printf("Hak\n");
+    for (x=0; x<COL; x++){
+        for (y=0; y<COL; y++){
+           printf("%.2lf ", aux[x][y]);
         }
+        printf("\n");
     }
     int i;
+    printf("Algo\n");
     for (i = 0; i < COL; i++) {
         if (aux[i][i] != 0) {
             int m, n;
@@ -72,9 +74,11 @@ int invertir(int matriz[COL][COL], int inversa[COL][COL]) {
                     }
                 }
             }
+        }else {
+            printf("ERROR %lf %d %d ", aux[i][i], i, i);
         }
     }
-
+    return 0;
 }
 
 int escribir(int fichero, int matriz[COL][COL]) {
@@ -84,6 +88,23 @@ int escribir(int fichero, int matriz[COL][COL]) {
     for (m=0; m<COL; m++){
         for(n=0; n<COL; n++){
             sprintf(caracter, "%d", matriz[m][n]);
+            write(fichero, caracter, strlen(caracter));
+            write(fichero, " ", 1);
+        }
+        write(fichero, "\n", 1);
+    }
+    write(fichero, "]\n", 2);
+    return 0;
+}
+
+
+int escribirDouble(int fichero, double matriz[COL][COL]) {
+    int m, n;
+    char caracter[5];
+    write(fichero, "[\n", 2);
+    for (m=0; m<COL; m++){
+        for(n=0; n<COL; n++){
+            sprintf(caracter, "%lf", matriz[m][n]);
             write(fichero, caracter, strlen(caracter));
             write(fichero, " ", 1);
         }
