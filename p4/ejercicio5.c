@@ -35,8 +35,13 @@ int main(int argc, char* argv[]){
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, -3, 4, 5, 6, 7, 8, 9, 1}
     };
-    float **inversaA;
-    float **inversaB;
+    float **inversaA = matriz(COL, COL);
+    for (int i = 0; i<COL; i++) {
+        for (int j = 0; j<COL; j++){
+            inversaA[i][i]=matrizA[i][j];
+        }
+    }
+    //float **inversaB = matriz(10, 10);
     pid = fork();
     if (pid == 0) {
         int i;
@@ -75,7 +80,7 @@ int main(int argc, char* argv[]){
             } else if (pid==0 && i==4){
                 printf("%s\n", "Inversa");
                 gaussj(inversaA, COL, COL);
-                //invertir(matrizB, inversaB);
+                //gaussj(in, inversaB);
                 int ficheroInv = abrir("inversa.txt");
                 //escribirDouble(ficheroInv, inversaA);
                 //escribirDouble(ficheroInv, inversaB);
