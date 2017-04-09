@@ -1,5 +1,6 @@
 #include "funciones5.h"
 #define SWAP(a, b) {temp=(a);(a)=(b);(b)=temp;}
+
 int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++) {
@@ -42,82 +43,51 @@ int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL]
     return 0;
 }
 
-int abrir(char *archivo) {
-    return open(archivo, O_WRONLY|O_CREAT, 0640);
-}
-
-/*la forma no pro
-int invertir(double aux[COL][COL], double inversa[COL][COL]) {
-    int x, y;
-    printf("Hak\n");
-    for (x=0; x<COL; x++){
-        for (y=0; y<COL; y++){
-           printf("%.2lf ", aux[x][y]);
-        }
-        printf("\n");
-    }
+float **matriz() {
     int i;
-    printf("Algo\n");
-    for (i = 0; i < COL; i++) {
-        if (aux[i][i] != 0) {
-            int m, n;
-            double divisor = aux[i][i];
-            for (m = 0; m < COL; m++) {
-                aux[i][m] = aux[i][m]/divisor;
-                inversa[i][m] = inversa[i][m]/divisor;
-            }
-            for(m=0; m<COL;m++){
-                if(m!=i) {
-                    double constante = aux[m][i];
-                    for (n = 0; n < COL; n++) {
-                        //printf("= %lf - (%lf * %lf)\n", inversa[m][n], inversa[i][n], constante);
-                        aux[m][n] = aux[m][n]-(aux[i][n]*constante);
-                        inversa[m][n] = inversa[m][n] - (inversa[i][n]*constante);
-                    }
-                }
-            }
-        }else {
-            printf("ERROR %lf %d %d ", aux[i][i], i, i);
-        }
-    }
-    return 0;
-}*/
-
-float **matriz(int row, int col) {
-    long i;
     float **m;
-    m = (float**) malloc((size_t)((row)*sizeof(float*)));
+    m = (float**) malloc((size_t)((COL)*sizeof(float*)));
+
     if (!m) {
-        printf("matriz()");
+        printf("error en matriz()");
         exit(1);
     }
 
-    for(i=0; i<col; i++){
-        m[i] = (float *) malloc((size_t)((col)*sizeof(float)));
-    }
-    if(!m[col-1]){
-         printf("matriz()");
+    for(i=0; i<col; i++)
+        m[i] = (float *) malloc((size_t)((COL)*sizeof(float)));
+
+    if(!m[COL-1]){
+         printf("error en matriz()");
          exit(1);
     }
-
     return m;
 }
-
-int gaussj(float **a, int n, int m) {
+int copiar_matriz(float **destino, int origen[COL][COL]){
+    int i, j;
+    for (i = 0; i < COL; i++) {
+       for (j = 0; j < COL; j++){
+           destino[i][j] = origen[i][j];
+       }
+    }
+    return 0;
+}
+int gaussj(float **a) {
     int *indxc, *indxr, *ipiv;
     int i, icol, irow, j, k, l, ll;
     float big, dum, pivinv, temp;
 
-    indxc = (int *) malloc((size_t)((n)*sizeof(int)));;
-    indxr = (int *) malloc((size_t)((n)*sizeof(int)));
-    ipiv = (int *) malloc((size_t)((n)*sizeof(int)));
+    indxc = (int *) malloc((size_t)((COL)*sizeof(int)));;
+    indxr = (int *) malloc((size_t)((COL)*sizeof(int)));
+    ipiv = (int *) malloc((size_t)((COL)*sizeof(int)));
 
-    for (j=0; j<n; j++) ipiv[j]=0;
-    for (i=0; i<n; i++){
+    for (j=0; j < COL; j++)
+        ipiv[j]=0;
+
+    for (i=0; i < COL; i++){
         big = 0.0;
-        for (j=0; j<n; j++){
+        for (j=0; j < COL; j++){
             if(ipiv[j] !=1){
-                for (k=0; k<n; k++){
+                for (k=0; k<COL; k++){
                     if(ipiv[k] == 0){
                         if(fabs(a[j][k]) >= big){
                             big = fabs(a[j][k]);
@@ -133,7 +103,7 @@ int gaussj(float **a, int n, int m) {
         }
         ++(ipiv[icol]);//ipiv[1]=1 ipiv[2]=2
         if (irow != icol) {
-            for (l=0; l<n; l++) SWAP(a[irow][l], a[icol][l]);
+            for (l=0; l<COL; l++) SWAP(a[irow][l], a[icol][l]);
         }
         indxr[i] = irow;//2 2
         indxc[i] = icol;//1 2
@@ -145,27 +115,33 @@ int gaussj(float **a, int n, int m) {
         a[icol][icol] = 1.0;
 
         //Continnuar la division de columnas de la fila en la que nos encontramos
-        for (l=0; l<n; l++) a[icol][l] *= pivinv;
+        for (l=0; l < COL; l++)
+            a[icol][l] *= pivinv;
         //resta menos en la fila del pivote icol
-        for (ll=0; ll<n; ll++){
+        for (ll=0; ll < COL; ll++){
             if(ll != icol) {
                 dum = a[ll][icol];
                 a[ll][icol]=0.0;
-                for (l=0; l<n; l++) a[ll][l] -= a[icol][l]*dum;
+                for (l=0; l < COL; l++)
+                    a[ll][l] -= a[icol][l]*dum;
             }
         }
     }
 
-    for (l=n-1; l>=0; l--){
+    for (l=COL-1; l >= 0; l--){
         if(indxr[l] != indxc[l]){
-            for(k=0; k<n; k++)
+            for(k=0; k<COL; k++)
                 SWAP(a[k][indxr[l]], a[k][indxc[l]]);
         }
-    }/*
-    free_ivector(ipiv, 1, n);
-    free_ivector(indxr, 1, n);
-    free_ivector(indxc, 1, n);*/
+    }
+    free(indxr);
+    free(indxc);
+    free(ipiv);
     return 0;
+}
+
+int abrir(char *archivo) {
+    return open(archivo, O_WRONLY|O_CREAT, 0640);
 }
 
 int escribir(int fichero, int matriz[COL][COL]) {

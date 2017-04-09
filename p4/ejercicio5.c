@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include "funciones5.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
     int pid;
     int matrizSuma[COL][COL];
     int matrizResta[COL][COL];
@@ -35,18 +35,9 @@ int main(int argc, char* argv[]){
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, -3, 4, 5, 6, 7, 8, 9, 1}
     };
-    float **inversaA = matriz(COL, COL);
-    for (int i = 0; i<COL; i++) {
-        for (int j = 0; j<COL; j++){
-            inversaA[i][j]=matrizA[i][j];
-        }
-    }
-    float **inversaB = matriz(COL, COL);
-     for (int i = 0; i<COL; i++) {
-        for (int j = 0; j<COL; j++){
-            inversaB[i][j]=matrizB[i][j];
-        }
-     }
+    float **inversaA;
+    float **inversaB;
+
     pid = fork();
     if (pid == 0) {
         int i;
@@ -54,30 +45,30 @@ int main(int argc, char* argv[]){
             pid = fork();
             if(pid==0 && i==0){
                 //printf("%s\n", "Suma");
-                sumar(matrizA, matrizB, matrizSuma);
                 int ficheroSuma = abrir("suma.txt");
+                sumar(matrizA, matrizB, matrizSuma);
                 escribir(ficheroSuma, matrizSuma);
                 close(ficheroSuma);
                 exit(0);
             } else if (pid==0 && i==1){
                 //printf("%s\n", "Resta");
-                restar(matrizA, matrizB, matrizResta);
                 int ficheroResta = abrir("resta.txt");
+                restar(matrizA, matrizB, matrizResta);
                 escribir(ficheroResta, matrizResta);
                 close(ficheroResta);
                 exit(0);
             } else if (pid==0 && i==2){
                 //printf("%s\n", "Multiplicacion");
-                multiplicar(matrizA, matrizB, producto);
                 int ficheroMul = abrir("multiplicacion.txt");
+                multiplicar(matrizA, matrizB, producto);
                 escribir(ficheroMul, producto);
                 close(ficheroMul);
                 exit(0);
             } else if (pid==0 && i==3){
                 //printf("%s\n", "Transpuesta");
+                int ficheroTras = abrir("traspuesta.txt");
                 trasponer(matrizA, traspuestaA);
                 trasponer(matrizB, traspuestaB);
-                int ficheroTras = abrir("traspuesta.txt");
                 escribir(ficheroTras, traspuestaA);
                 escribir(ficheroTras, traspuestaB);
                 close(ficheroTras);
@@ -85,9 +76,13 @@ int main(int argc, char* argv[]){
             } else if (pid==0 && i==4){
                 //printf("%s\n", "Inversa");
                 int ficheroInv = abrir("inversa.txt");
-                gaussj(inversaA, COL, COL);
+                inversaA = matriz();
+                inversaB = matriz();
+                copiar_matriz(inversaA, matrizA);
+                copiar_matriz(inversaB, matrizB);
+                gaussj(inversaA);
                 escribirFloat(ficheroInv, inversaA);
-                gaussj(inversaB, COL, COL);
+                gaussj(inversaB);
                 escribirFloat(ficheroInv, inversaA);
                 escribirFloat(ficheroInv, inversaB);
                 close(ficheroInv);

@@ -17,8 +17,9 @@ int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL]
 int abrir(char *);
 int escribir(int, int matriz[COL][COL]);
 int escribirFloat(int, float **);
-float **matriz(int, int);
+float **matriz();
 int imprimir(char *);
-//int invertir(double matriz[COL][COL], double inversa[COL][COL]);
-int gaussj(float **i, int, int);
+int gaussj(float **);
+int copiar_matriz(float **, int matriz[COL][COL]);
+
 #endif
