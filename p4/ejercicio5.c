@@ -44,28 +44,28 @@ int main(int argc, char* argv[]) {
         for(i=0; i<5; i++){
             pid = fork();
             if(pid==0 && i==0){
-                //printf("%s\n", "Suma");
+                printf("%s\n", "Suma");
                 int ficheroSuma = abrir("suma.txt");
                 sumar(matrizA, matrizB, matrizSuma);
                 escribir(ficheroSuma, matrizSuma);
                 close(ficheroSuma);
                 exit(0);
             } else if (pid==0 && i==1){
-                //printf("%s\n", "Resta");
+                printf("%s\n", "Resta");
                 int ficheroResta = abrir("resta.txt");
                 restar(matrizA, matrizB, matrizResta);
                 escribir(ficheroResta, matrizResta);
                 close(ficheroResta);
                 exit(0);
             } else if (pid==0 && i==2){
-                //printf("%s\n", "Multiplicacion");
+                printf("%s\n", "Multiplicacion");
                 int ficheroMul = abrir("multiplicacion.txt");
                 multiplicar(matrizA, matrizB, producto);
                 escribir(ficheroMul, producto);
                 close(ficheroMul);
                 exit(0);
             } else if (pid==0 && i==3){
-                //printf("%s\n", "Transpuesta");
+                printf("%s\n", "Transpuesta");
                 int ficheroTras = abrir("traspuesta.txt");
                 trasponer(matrizA, traspuestaA);
                 trasponer(matrizB, traspuestaB);
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
                 close(ficheroTras);
                 exit(0);
             } else if (pid==0 && i==4){
-                //printf("%s\n", "Inversa");
+                printf("%s\n", "Inversa");
                 int ficheroInv = abrir("inversa.txt");
                 inversaA = matriz();
                 inversaB = matriz();
@@ -87,8 +87,7 @@ int main(int argc, char* argv[]) {
                 escribirFloat(ficheroInv, inversaB);
                 close(ficheroInv);
                 exit(0);
-            } else
-                wait(NULL);
+            }
         }
         exit(0);
     } else {

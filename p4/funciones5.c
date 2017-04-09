@@ -53,7 +53,7 @@ float **matriz() {
         exit(1);
     }
 
-    for(i=0; i<col; i++)
+    for(i=0; i<COL; i++)
         m[i] = (float *) malloc((size_t)((COL)*sizeof(float)));
 
     if(!m[COL-1]){

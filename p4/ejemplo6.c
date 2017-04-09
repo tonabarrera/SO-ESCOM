@@ -3,10 +3,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <stdlib.h>
-int main() {
+int main(void) {
     pid_t pid;
     char *argv[3];
-    argv[0] = "./hola";
+    argv[0] = "./hola.out";
     argv[1] = "Desde el hijo";
     argv[2] = NULL;
     if ((pid=fork())==0) {
