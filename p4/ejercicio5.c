@@ -11,20 +11,7 @@ int main(int argc, char* argv[]){
     int producto[COL][COL];
     int traspuestaA[COL][COL];
     int traspuestaB[COL][COL];
-    double inversaA[COL][COL] = {
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
-    };
-    double inversaB[COL][COL];
-    double matrizA[COL][COL] = {
+    int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
         {1, 3, 5, 6, 7, -1, 7, 8, 9, 10},
         {-1, 2, 3, 4, 5, 0, 7, 8, 9, 1},
@@ -36,7 +23,7 @@ int main(int argc, char* argv[]){
         {3, -2, -3, 4, 0, 6, 7, -8, 9, 10},
         {2, 2, 3, -4, 9, 6, 7, 8, 9, 10}
     };
-    double matrizB[COL][COL] = {
+    int matrizB[COL][COL] = {
         {1, 2, 3, 4, 5, 0, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, 3, 4, 5, -6, 7, 8, 9, 10},
@@ -48,6 +35,8 @@ int main(int argc, char* argv[]){
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, -3, 4, 5, 6, 7, 8, 9, 1}
     };
+    float **inversaA;
+    float **inversaB;
     pid = fork();
     if (pid == 0) {
         int i;
@@ -85,10 +74,10 @@ int main(int argc, char* argv[]){
                 exit(0);
             } else if (pid==0 && i==4){
                 printf("%s\n", "Inversa");
-                invertir(matrizA, inversaA);
+                gaussj(inversaA, COL, COL);
                 //invertir(matrizB, inversaB);
                 int ficheroInv = abrir("inversa.txt");
-                escribirDouble(ficheroInv, inversaA);
+                //escribirDouble(ficheroInv, inversaA);
                 //escribirDouble(ficheroInv, inversaB);
                 close(ficheroInv);
                 exit(0);

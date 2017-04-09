@@ -1,5 +1,5 @@
 #include "funciones5.h"
-int sumar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL][COL]) {
+int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++) {
         for (j = 0; j < COL; j++)
@@ -8,7 +8,7 @@ int sumar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL]
     return 0;
 }
 
-int restar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL][COL]) {
+int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++)
         for (j = 0; j < COL; j++){
@@ -17,7 +17,7 @@ int restar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL
     return 0;
 }
 
-int trasponer(double matriz[COL][COL], int traspuesta[COL][COL]) {
+int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]) {
     int i, j;
     for(i=0;i<COL; i++){
         for(j=0; j<COL; j++)
@@ -26,7 +26,7 @@ int trasponer(double matriz[COL][COL], int traspuesta[COL][COL]) {
     return 0;
 }
 //Tal vez sea mejor si uso recursion
-int multiplicar(double matrizA[COL][COL], double matrizB[COL][COL], int resultado[COL][COL]) {
+int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j, k;
     int valor = 0;
     for(i=0; i<COL; i++){
@@ -45,6 +45,7 @@ int abrir(char *archivo) {
     return open(archivo, O_WRONLY|O_CREAT, 0640);
 }
 
+/*la forma no pro
 int invertir(double aux[COL][COL], double inversa[COL][COL]) {
     int x, y;
     printf("Hak\n");
@@ -79,7 +80,7 @@ int invertir(double aux[COL][COL], double inversa[COL][COL]) {
         }
     }
     return 0;
-}
+}*/
 
 int escribir(int fichero, int matriz[COL][COL]) {
     int m, n;
@@ -97,7 +98,7 @@ int escribir(int fichero, int matriz[COL][COL]) {
     return 0;
 }
 
-
+/*
 int escribirDouble(int fichero, double matriz[COL][COL]) {
     int m, n;
     char caracter[5];
@@ -112,7 +113,7 @@ int escribirDouble(int fichero, double matriz[COL][COL]) {
     }
     write(fichero, "]\n", 2);
     return 0;
-}
+}*/
 
 int imprimir(char *archivo) {
     int fichero;
