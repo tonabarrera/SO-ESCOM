@@ -83,6 +83,26 @@ int invertir(double aux[COL][COL], double inversa[COL][COL]) {
     return 0;
 }*/
 
+float **matriz(int row, int col) {
+    long i;
+    float **m;
+    m = (float**) malloc((size_t)((row)*sizeof(float*)));
+    if (!m) {
+        printf("matriz()");
+        exit(1);
+    }
+
+    for(i=0; i<col; i++){
+        m[i] = (float *) malloc((size_t)((col)*sizeof(float)));
+    }
+    if(!m[col-1]){
+         printf("matriz()");
+         exit(1);
+    }
+
+    return m;
+}
+
 int gaussj(float **a, int n, int m) {
     int *indxc, *indxr, *ipiv;
     int i, icol, irow, j, k, l, ll;
@@ -164,14 +184,14 @@ int escribir(int fichero, int matriz[COL][COL]) {
     return 0;
 }
 
-/*
-int escribirDouble(int fichero, double matriz[COL][COL]) {
+
+int escribirFloat(int fichero, float **matriz) {
     int m, n;
     char caracter[5];
     write(fichero, "[\n", 2);
     for (m=0; m<COL; m++){
         for(n=0; n<COL; n++){
-            sprintf(caracter, "%lf", matriz[m][n]);
+            sprintf(caracter, "%.2f", matriz[m][n]);
             write(fichero, caracter, strlen(caracter));
             write(fichero, " ", 1);
         }
@@ -179,7 +199,7 @@ int escribirDouble(int fichero, double matriz[COL][COL]) {
     }
     write(fichero, "]\n", 2);
     return 0;
-}*/
+}
 
 int imprimir(char *archivo) {
     int fichero;

@@ -38,38 +38,43 @@ int main(int argc, char* argv[]){
     float **inversaA = matriz(COL, COL);
     for (int i = 0; i<COL; i++) {
         for (int j = 0; j<COL; j++){
-            inversaA[i][i]=matrizA[i][j];
+            inversaA[i][j]=matrizA[i][j];
         }
     }
-    //float **inversaB = matriz(10, 10);
+    float **inversaB = matriz(COL, COL);
+     for (int i = 0; i<COL; i++) {
+        for (int j = 0; j<COL; j++){
+            inversaB[i][j]=matrizB[i][j];
+        }
+     }
     pid = fork();
     if (pid == 0) {
         int i;
         for(i=0; i<5; i++){
             pid = fork();
             if(pid==0 && i==0){
-                printf("%s\n", "Suma");
+                //printf("%s\n", "Suma");
                 sumar(matrizA, matrizB, matrizSuma);
                 int ficheroSuma = abrir("suma.txt");
                 escribir(ficheroSuma, matrizSuma);
                 close(ficheroSuma);
                 exit(0);
             } else if (pid==0 && i==1){
-                printf("%s\n", "Resta");
+                //printf("%s\n", "Resta");
                 restar(matrizA, matrizB, matrizResta);
                 int ficheroResta = abrir("resta.txt");
                 escribir(ficheroResta, matrizResta);
                 close(ficheroResta);
                 exit(0);
             } else if (pid==0 && i==2){
-                printf("%s\n", "Multiplicacion");
+                //printf("%s\n", "Multiplicacion");
                 multiplicar(matrizA, matrizB, producto);
                 int ficheroMul = abrir("multiplicacion.txt");
                 escribir(ficheroMul, producto);
                 close(ficheroMul);
                 exit(0);
             } else if (pid==0 && i==3){
-                printf("%s\n", "Transpuesta");
+                //printf("%s\n", "Transpuesta");
                 trasponer(matrizA, traspuestaA);
                 trasponer(matrizB, traspuestaB);
                 int ficheroTras = abrir("traspuesta.txt");
@@ -78,12 +83,13 @@ int main(int argc, char* argv[]){
                 close(ficheroTras);
                 exit(0);
             } else if (pid==0 && i==4){
-                printf("%s\n", "Inversa");
-                gaussj(inversaA, COL, COL);
-                //gaussj(in, inversaB);
+                //printf("%s\n", "Inversa");
                 int ficheroInv = abrir("inversa.txt");
-                //escribirDouble(ficheroInv, inversaA);
-                //escribirDouble(ficheroInv, inversaB);
+                gaussj(inversaA, COL, COL);
+                escribirFloat(ficheroInv, inversaA);
+                gaussj(inversaB, COL, COL);
+                escribirFloat(ficheroInv, inversaA);
+                escribirFloat(ficheroInv, inversaB);
                 close(ficheroInv);
                 exit(0);
             } else
