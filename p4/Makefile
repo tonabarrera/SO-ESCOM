@@ -1,4 +1,4 @@
-codigo=ejercicio8.c
+codigo=linux3.c
 libreria=hola.c
 flags=-fno-stack-protector
 objeto=$(codigo:.c=.o)
@@ -17,4 +17,4 @@ $(objeto):$(codigo)
 $(lib):$(libreria)
 	gcc -c -Wall $<
 clear:
-	rm $(ejecutable) $(objeto) $(lib) *.txt
+	rm *.out *.o  *.txt

@@ -1,3 +1,4 @@
+/*hola.c es el programa que se ejecuta*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

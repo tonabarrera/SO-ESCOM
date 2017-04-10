@@ -4,9 +4,9 @@
 
 int main(int argc, char* argv[])
 {
-    int id_proc;
-    id_proc = fork();
-    if (id_proc == 0) {
+    pid_t pid;
+    pid = fork();
+    if (pid == 0) {
         printf("Soy el proceso hijo \n");
         exit(0);
     } else {
