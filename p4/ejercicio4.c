@@ -191,7 +191,7 @@ int main(int argc, char* argv[]) {
         else if (pid==0 && i==9)
             prueba5(i, pid);
         else
-            wait(NULL);
+            wait(NULL); // este no lo pone, es un for(0->10) wait(0)
     }
     return 0;
 }
