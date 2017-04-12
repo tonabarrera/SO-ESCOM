@@ -58,7 +58,7 @@ int main(int argc, char const* argv[]){
     printf("%s\n", "Realizando Suma...");
     fichero = abrir("suma2.txt");
     sumar(matrizA, matrizB, matrizSuma);
-    escribir_matriz(ficheroSuma, matrizSuma);
+    escribir_matriz(fichero, matrizSuma);
     close(fichero);
 
     printf("%s\n", "Realizando Resta...");
@@ -68,7 +68,7 @@ int main(int argc, char const* argv[]){
     close(fichero);
 
     printf("%s\n", "Realizando Multiplicacion...");
-    fichero = abrir("multiplicacion.txt");
+    fichero = abrir("multiplicacion2.txt");
     multiplicar(matrizA, matrizB, producto);
     escribir_matriz(fichero, producto);
     close(fichero);
@@ -84,7 +84,7 @@ int main(int argc, char const* argv[]){
     close(fichero);
 
     printf("%s\n", "Realizando Inversa...");
-    int fichero = abrir("inversa2.txt");
+    fichero = abrir("inversa2.txt");
     inversaA = matriz();
     inversaB = matriz();
     copiar_matriz(inversaA, matrizA);
@@ -108,7 +108,7 @@ int main(int argc, char const* argv[]){
     imprimir("suma2.txt");
     printf("\n%s\n", "--Resta de las dos matrices");
     imprimir("resta2.txt");
-    printf("\n%s\n", "--Multiplicacion de las dosmatrices");
+    printf("\n%s\n", "--Multiplicacion de las dos matrices");
     imprimir("multiplicacion2.txt");
     printf("\n%s\n", "--Traspuesta de las dos matrices");
     imprimir("traspuesta2.txt");
