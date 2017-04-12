@@ -96,8 +96,8 @@ int gaussj(float **inversa) {
                             icol = k;//1 2
                         }
                     } else if(ipiv[k]>1) {
-                        printf("Error");
-                        exit(1);
+                        printf("Error, no es invertible");
+                        return -1;
                     }
                 }
             }
@@ -109,8 +109,8 @@ int gaussj(float **inversa) {
         indxr[i] = irow;//2 2
         indxc[i] = icol;//1 2
         if (inversa[icol][icol]==0.0) {
-            printf("Error\n");
-            exit(1);
+            printf("Error, no es invertible\n");
+            return -1;
         }
         pivinv = 1.0/inversa[icol][icol]; //dividir fila del pivote
         inversa[icol][icol] = 1.0;

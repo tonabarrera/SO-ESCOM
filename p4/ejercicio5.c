@@ -76,18 +76,22 @@ int main(int argc, char* argv[]) {
             } else if (pid==0 && i==4){
                 printf("%s\n", "Inversa");
                 int ficheroInv = abrir("inversa.txt");
+                int estado = 0;
                 inversaA = matriz();
                 inversaB = matriz();
                 copiar_matriz(inversaA, matrizA);
                 copiar_matriz(inversaB, matrizB);
-                gaussj(inversaA);
-                escribirFloat(ficheroInv, inversaA);
-                gaussj(inversaB);
-                escribirFloat(ficheroInv, inversaA);
-                escribirFloat(ficheroInv, inversaB);
+                estado = gaussj(inversaA);
+                if (estado != -1){
+                    escribirFloat(ficheroInv, inversaA);
+                }
+                estado = gaussj(inversaB);
+                if (estado != -1)
+                    escribirFloat(ficheroInv, inversaB);
                 close(ficheroInv);
                 exit(0);
-            }
+            } else
+                wait(NULL);
         }
         exit(0);
     } else {
