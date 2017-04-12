@@ -3,12 +3,19 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <time.h>
+#include <sys/time.h>
 #include "funciones5.h"
 
+double timeval_diff(struct timeval *a, struct timeval *b)
+{
+  return (double)(a->tv_sec + (double)a->tv_usec/1000000) - (double)(b->tv_sec + (double)b->tv_usec/1000000);
+}
+
 int main(int argc, char* argv[]) {
-    clock_t t_ini, t_fin;
+    struct timeval t_ini, t_fin;
     double secs;
-    t_ini = clock();
+    gettimeofday(&t_ini, NULL);
+
     pid_t pid;
     int i, I;
     int matrizSuma[COL][COL];
@@ -125,8 +132,8 @@ int main(int argc, char* argv[]) {
         printf("\n%s\n", "--Iversa de las dos matrices");
         imprimir("inversa.txt");
     }
-    t_fin = clock();
-    secs = (double)(t_fin - t_ini) / CLOCKS_PER_SEC;
-    printf("%.16g milisegundos\n", secs * 1000.0);
+    gettimeofday(&t_fin, NULL);
+    secs = timeval_diff(&t_fin, &t_ini);
+    printf("%.16g milliseconds\n", secs * 1000.0);
     return 0;
 }
