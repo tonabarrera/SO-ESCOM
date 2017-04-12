@@ -1,4 +1,4 @@
-codigo=linux3.c
+codigo=ejercicio4B.c
 libreria=hola.c
 flags=-fno-stack-protector
 objeto=$(codigo:.c=.o)
