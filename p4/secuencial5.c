@@ -119,4 +119,4 @@ int main(int argc, char const* argv[]){
     secs = timeval_diff(&t_fin, &t_ini);
     printf("%.16g milliseconds\n", secs * 1000.0);
     return 0;
-}
+}//14.764
