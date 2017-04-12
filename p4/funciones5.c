@@ -42,7 +42,7 @@ int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL]
     }
     return 0;
 }
-
+/*Con esto creamos nuestra matriz con apuntadores ya que usar un simple array a la antigua es mas dificil*/
 float **matriz() {
     int i;
     float **m;
@@ -71,7 +71,8 @@ int copiar_matriz(float **destino, int origen[COL][COL]){
     }
     return 0;
 }
-int gaussj(float **a) {
+
+int gaussj(float **inversa) {
     int *indxc, *indxr, *ipiv;
     int i, icol, irow, j, k, l, ll;
     float big, dum, pivinv, temp;
@@ -89,8 +90,8 @@ int gaussj(float **a) {
             if(ipiv[j] !=1){
                 for (k=0; k<COL; k++){
                     if(ipiv[k] == 0){
-                        if(fabs(a[j][k]) >= big){
-                            big = fabs(a[j][k]);
+                        if(fabs(inversa[j][k]) >= big){
+                            big = fabs(inversa[j][k]);
                             irow = j;//2 2
                             icol = k;//1 2
                         }
@@ -103,27 +104,27 @@ int gaussj(float **a) {
         }
         ++(ipiv[icol]);//ipiv[1]=1 ipiv[2]=2
         if (irow != icol) {
-            for (l=0; l<COL; l++) SWAP(a[irow][l], a[icol][l]);
+            for (l=0; l<COL; l++) SWAP(inversa[irow][l], inversa[icol][l]);
         }
         indxr[i] = irow;//2 2
         indxc[i] = icol;//1 2
-        if (a[icol][icol]==0.0) {
+        if (inversa[icol][icol]==0.0) {
             printf("Error\n");
             exit(1);
         }
-        pivinv = 1.0/a[icol][icol]; //dividir fila del pivote
-        a[icol][icol] = 1.0;
+        pivinv = 1.0/inversa[icol][icol]; //dividir fila del pivote
+        inversa[icol][icol] = 1.0;
 
         //Continnuar la division de columnas de la fila en la que nos encontramos
         for (l=0; l < COL; l++)
-            a[icol][l] *= pivinv;
+            inversa[icol][l] *= pivinv;
         //resta menos en la fila del pivote icol
         for (ll=0; ll < COL; ll++){
             if(ll != icol) {
-                dum = a[ll][icol];
-                a[ll][icol]=0.0;
+                dum = inversa[ll][icol];
+                inversa[ll][icol]=0.0;
                 for (l=0; l < COL; l++)
-                    a[ll][l] -= a[icol][l]*dum;
+                    inversa[ll][l] -= inversa[icol][l]*dum;
             }
         }
     }
@@ -131,7 +132,7 @@ int gaussj(float **a) {
     for (l=COL-1; l >= 0; l--){
         if(indxr[l] != indxc[l]){
             for(k=0; k<COL; k++)
-                SWAP(a[k][indxr[l]], a[k][indxc[l]]);
+                SWAP(inversa[k][indxr[l]], inversa[k][indxc[l]]);
         }
     }
     free(indxr);

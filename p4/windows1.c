@@ -2,13 +2,15 @@
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
+    argc =2;
+    argv[1] = "windows2.exe";
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
     ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
     ZeroMemory(&pi, sizeof(pi));
     if (argc!=2) {
-        printf("Usar %s windows2.c\n", argv[0]);
+        printf("Usar %s windows2.exe\n", argv[0]);
         return -1;
     }
 
