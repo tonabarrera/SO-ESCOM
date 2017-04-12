@@ -10,7 +10,7 @@ int main(void) {
     } else {
         printf("Soy el proceso padre \n");
     }
-    printf("Mensaje en ambos\n");
+    printf("Mensaje en ambos %d\n", getpid());
     exit(0);
     return 0;
 }
