@@ -1,5 +1,5 @@
-codigo=ejercicio4B.c
-libreria=hola.c
+codigo=ejercicio5.c
+libreria=funciones5.c
 flags=-fno-stack-protector
 objeto=$(codigo:.c=.o)
 lib=$(libreria:.c=.o)
@@ -8,8 +8,8 @@ ejecutable2=$(libreria:.c=.out)
 
 run:$(ejecutable)
 	./$(ejecutable)
-$(ejecutable):$(objeto)
-	gcc $(objeto) -o $@
+$(ejecutable):$(objeto) $(lib)
+	gcc $(objeto) $(lib) -o $@
 $(ejecutable2):$(lib)
 	gcc $(lib) -o $@
 $(objeto):$(codigo)

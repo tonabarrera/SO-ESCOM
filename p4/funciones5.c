@@ -27,7 +27,7 @@ int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]) {
     }
     return 0;
 }
-//Tal vez sea mejor si uso recursion
+
 int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
     int i, j, k;
     int valor = 0;
@@ -49,7 +49,7 @@ float **matriz() {
     m = (float**) malloc((size_t)((COL)*sizeof(float*)));
 
     if (!m) {
-        printf("error en matriz()");
+        printf("Error en **matriz()");
         exit(1);
     }
 
@@ -57,7 +57,7 @@ float **matriz() {
         m[i] = (float *) malloc((size_t)((COL)*sizeof(float)));
 
     if(!m[COL-1]){
-         printf("error en matriz()");
+         printf("Error en **matriz()");
          exit(1);
     }
     return m;
@@ -96,7 +96,7 @@ int gaussj(float **inversa) {
                             icol = k;//1 2
                         }
                     } else if(ipiv[k]>1) {
-                        printf("Error, no es invertible");
+                        printf("---Error, la matriz es no invertible--\n");
                         return -1;
                     }
                 }
@@ -109,7 +109,7 @@ int gaussj(float **inversa) {
         indxr[i] = irow;//2 2
         indxc[i] = icol;//1 2
         if (inversa[icol][icol]==0.0) {
-            printf("Error, no es invertible\n");
+            printf("--Error, la matriz es no invertible--\n");
             return -1;
         }
         pivinv = 1.0/inversa[icol][icol]; //dividir fila del pivote
@@ -145,7 +145,14 @@ int abrir(char *archivo) {
     return open(archivo, O_WRONLY|O_CREAT, 0640);
 }
 
-int escribir(int fichero, int matriz[COL][COL]) {
+int escribir_texto(int fichero, char *texto) {
+    write(fichero, "\n", 1);
+    write(fichero, texto, strlen(texto));
+    write(fichero, "\n", 1);
+    return 0;
+}
+
+int escribir_matriz(int fichero, int matriz[COL][COL]) {
     int m, n;
     char caracter[5];
     write(fichero, "[\n", 2);
@@ -162,7 +169,7 @@ int escribir(int fichero, int matriz[COL][COL]) {
 }
 
 
-int escribirFloat(int fichero, float **matriz) {
+int escribir_float(int fichero, float **matriz) {
     int m, n;
     char caracter[5];
     write(fichero, "[\n", 2);
@@ -186,5 +193,17 @@ int imprimir(char *archivo) {
         printf("%s", cadena);
     }
     close(fichero);
+    return 0;
+}
+
+int mostrar_matriz(int matriz[COL][COL]) {
+    int i, j;
+    printf("[\n");
+    for (i=0; i<COL; i++){
+        for(j=0; j<COL; j++)
+            printf("%d ", matriz[i][j]);
+        printf("\n");
+    }
+    printf("]\n");
     return 0;
 }

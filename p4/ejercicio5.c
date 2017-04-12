@@ -5,7 +5,8 @@
 #include "funciones5.h"
 
 int main(int argc, char* argv[]) {
-    int pid;
+    pid_t pid;
+    int i, I;
     int matrizSuma[COL][COL];
     int matrizResta[COL][COL];
     int producto[COL][COL];
@@ -37,44 +38,50 @@ int main(int argc, char* argv[]) {
     };
     float **inversaA;
     float **inversaB;
-
+    printf("--La matriz A es:\n");
+    mostrar_matriz(matrizA);
+    printf("\n");
+    printf("--La matriz B es:\n");
+    mostrar_matriz(matrizB);
+    printf("\n");
     pid = fork();
     if (pid == 0) {
-        int i;
         for(i=0; i<5; i++){
             pid = fork();
             if(pid==0 && i==0){
-                printf("%s\n", "Suma");
+                printf("%s\n", "Realizando Suma...");
                 int ficheroSuma = abrir("suma.txt");
                 sumar(matrizA, matrizB, matrizSuma);
-                escribir(ficheroSuma, matrizSuma);
+                escribir_matriz(ficheroSuma, matrizSuma);
                 close(ficheroSuma);
                 exit(0);
             } else if (pid==0 && i==1){
-                printf("%s\n", "Resta");
+                printf("%s\n", "Realizando Resta...");
                 int ficheroResta = abrir("resta.txt");
                 restar(matrizA, matrizB, matrizResta);
-                escribir(ficheroResta, matrizResta);
+                escribir_matriz(ficheroResta, matrizResta);
                 close(ficheroResta);
                 exit(0);
             } else if (pid==0 && i==2){
-                printf("%s\n", "Multiplicacion");
+                printf("%s\n", "Realizando Multiplicacion...");
                 int ficheroMul = abrir("multiplicacion.txt");
                 multiplicar(matrizA, matrizB, producto);
-                escribir(ficheroMul, producto);
+                escribir_matriz(ficheroMul, producto);
                 close(ficheroMul);
                 exit(0);
             } else if (pid==0 && i==3){
-                printf("%s\n", "Transpuesta");
+                printf("%s\n", "Realizando Transpuesta...");
                 int ficheroTras = abrir("traspuesta.txt");
                 trasponer(matrizA, traspuestaA);
                 trasponer(matrizB, traspuestaB);
-                escribir(ficheroTras, traspuestaA);
-                escribir(ficheroTras, traspuestaB);
+                escribir_texto(ficheroTras, "La matriz traspuesta de A es:");
+                escribir_matriz(ficheroTras, traspuestaA);
+                escribir_texto(ficheroTras, "La matriz traspuesta de B es:");
+                escribir_matriz(ficheroTras, traspuestaB);
                 close(ficheroTras);
                 exit(0);
             } else if (pid==0 && i==4){
-                printf("%s\n", "Inversa");
+                printf("%s\n", "Realizando Inversa...");
                 int ficheroInv = abrir("inversa.txt");
                 int estado = 0;
                 inversaA = matriz();
@@ -83,29 +90,35 @@ int main(int argc, char* argv[]) {
                 copiar_matriz(inversaB, matrizB);
                 estado = gaussj(inversaA);
                 if (estado != -1){
-                    escribirFloat(ficheroInv, inversaA);
-                }
+                    escribir_texto(ficheroInv, "La inversa de la matriz A es:");
+                    escribir_float(ficheroInv, inversaA);
+                } else
+                    escribir_texto(ficheroInv, "La matriz A es no invertible");
                 estado = gaussj(inversaB);
-                if (estado != -1)
-                    escribirFloat(ficheroInv, inversaB);
+                if (estado != -1){
+                    escribir_texto(ficheroInv, "La inversa de la matriz B es");
+                    escribir_float(ficheroInv, inversaB);
+                } else
+                    escribir_texto(ficheroInv, "La matriz B es no invertible");
                 close(ficheroInv);
                 exit(0);
-            } else
-                wait(NULL);
+            }
         }
+        for (I = 0; I < 5; I++)
+            wait(NULL);
         exit(0);
     } else {
         wait(NULL);
-        printf("%s\n", "Salida");
-        printf("%s\n", "Suma de matrices");
+        printf("\n%s\n", "Leyendo los archivos...");
+        printf("\n%s\n", "--Suma de las dos matrices");
         imprimir("suma.txt");
-        printf("%s\n", "Resta de matrices");
+        printf("\n%s\n", "--Resta de las dosmatrices");
         imprimir("resta.txt");
-        printf("%s\n", "Multiplicacion de matrices");
+        printf("\n%s\n", "--Multiplicacion de las dosmatrices");
         imprimir("multiplicacion.txt");
-        printf("%s\n", "Traspuesta de las dos matrices");
+        printf("\n%s\n", "--Traspuesta de las dos matrices");
         imprimir("traspuesta.txt");
-        printf("%s\n", "Iversa de matrices");
+        printf("\n%s\n", "--Iversa de las dos matrices");
         imprimir("inversa.txt");
     }
     return 0;

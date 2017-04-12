@@ -15,11 +15,13 @@ int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]
 int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]);
 int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]);
 int abrir(char *);
-int escribir(int, int matriz[COL][COL]);
-int escribirFloat(int, float **);
+int escribir_texto(int, char *);
+int escribir_matriz(int, int matriz[COL][COL]);
+int escribir_float(int, float **);
 float **matriz();
 int imprimir(char *);
 int gaussj(float **);
 int copiar_matriz(float **, int matriz[COL][COL]);
+int mostrar_matriz(int matriz[COL][COL]);
 
 #endif
