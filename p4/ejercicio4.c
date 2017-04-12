@@ -166,6 +166,7 @@ void prueba5(int i, int pid){
 
 int main(int argc, char* argv[]) {
     int i;
+    int I;
     int pid;
     printf("Raiz: %d\n\n", getpid());
     for (i = 0; i < 10; i++) {
@@ -190,9 +191,8 @@ int main(int argc, char* argv[]) {
             prueba4(i, pid);
         else if (pid==0 && i==9)
             prueba5(i, pid);
-        else
-            wait(NULL); // este no lo pone, es un for(0->10) wait(0)
     }
+    for (I = 0; I < 10; I++)
+        wait(NULL);
     return 0;
 }
-
