@@ -2,9 +2,13 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <time.h>
 #include "funciones5.h"
 
 int main(int argc, char* argv[]) {
+    clock_t t_ini, t_fin;
+    double secs;
+    t_ini = clock();
     pid_t pid;
     int i, I;
     int matrizSuma[COL][COL];
@@ -121,5 +125,8 @@ int main(int argc, char* argv[]) {
         printf("\n%s\n", "--Iversa de las dos matrices");
         imprimir("inversa.txt");
     }
+    t_fin = clock();
+    secs = (double)(t_fin - t_ini) / CLOCKS_PER_SEC;
+    printf("%.16g milisegundos\n", secs * 1000.0);
     return 0;
 }
