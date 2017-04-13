@@ -30,8 +30,8 @@ int main(int argc, char const* argv[])
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, -3, 4, 5, 6, 7, 8, 9, 1}
     };
-    int **inversaA;
-    int **inversaB;
+    float **inversaA;
+    float **inversaB;
     strcpy(msj, "Realizando inversa - ");
     strcat(msj, argv[1]);
     printf("%s\n", msj);

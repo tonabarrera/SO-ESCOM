@@ -6,6 +6,7 @@
 int main(int argc, char const* argv[])
 {
     char msj[100];
+    int producto[COL][COL];
     int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
         {1, 3, 5, 6, 7, -1, 7, 8, 9, 10},
