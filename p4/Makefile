@@ -1,4 +1,4 @@
-codigo=secuencial5.c
+codigo=ejercicio8.c
 libreria=funciones5.c
 flags=-fno-stack-protector
 objeto=$(codigo:.c=.o)

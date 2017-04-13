@@ -30,15 +30,14 @@ int main(int argc, char const* argv[])
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
         {1, 2, -3, 4, 5, 6, 7, 8, 9, 1}
     };
-    int matrizSuma[COL][COL];
-    strcpy(mensaje, "Realizando Suma - ");
+    int matrizResta[COL][COL];
+    strcpy(mensaje, "Realizando Resta - ");
     strcat(mensaje, argv[1]);
     printf("%s\n", mensaje);
-    int ficheroSuma = abrir("suma.txt");
-    sumar(matrizA, matrizB, matrizSuma);
-    escribir_matriz(ficheroSuma, matrizSuma);
-    close(ficheroSuma);
-
+    int ficheroResta = abrir("resta.txt");
+    restar(matrizA, matrizB, matrizResta);
+    escribir_matriz(ficheroResta, matrizResta);
+    close(ficheroResta);
     exit(0);
     return 0;
 }
