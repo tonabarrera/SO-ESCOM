@@ -9,7 +9,7 @@ int main(void) {
     int i, I;
     char *argv[3];
     argv[2] = NULL;
-    printf("Procesos por sustitucion de codigo");
+    printf("---Procesos por sustitucion de codigo---\n");
     pid = fork();
     if (pid == 0) {
         for (i=0; i<5; i++){
