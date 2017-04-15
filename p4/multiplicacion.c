@@ -3,8 +3,7 @@
 #include <string.h>
 #include "funciones5.h"
 
-int main(int argc, char const* argv[])
-{
+int main(int argc, char const* argv[]){
     char msj[100];
     int producto[COL][COL];
     int matrizA[COL][COL] = {

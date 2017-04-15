@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include "funciones5.h"
 
-int main(int argc, char const* argv[])
-{
+int main(int argc, char const* argv[]){
     char mensaje[100];
     int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
