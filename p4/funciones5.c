@@ -62,6 +62,7 @@ float **matriz() {
     }
     return m;
 }
+// Copiamos valores de una matriz de la forma matriz[x][x] a una matriz como **matriz
 int copiar_matriz(float **destino, int origen[COL][COL]){
     int i, j;
     for (i = 0; i < COL; i++) {
@@ -71,7 +72,7 @@ int copiar_matriz(float **destino, int origen[COL][COL]){
     }
     return 0;
 }
-
+// resive la matriz a la que se le hara la inversa
 int gaussj(float **inversa) {
     int *columnas, *filas, *pivotes;
     int i, icol, ifila, j, k, l, ll;
