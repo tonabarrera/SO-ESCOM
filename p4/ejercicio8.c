@@ -4,7 +4,18 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include "funciones5.h"
+#include <time.h>
+#include <sys/time.h>
+
+double timeval_diff(struct timeval *a, struct timeval *b)
+{
+  return (double)(a->tv_sec + (double)a->tv_usec/1000000) - (double)(b->tv_sec + (double)b->tv_usec/1000000);
+}
+
 int main(void) {
+    struct timeval t_ini, t_fin;
+    double secs;
+    gettimeofday(&t_ini, NULL);
     pid_t pid;
     int i, I;
     char *argv[3];
@@ -52,6 +63,10 @@ int main(void) {
         imprimir("traspuesta.txt");
         printf("\n%s\n", "--Inversa de las dos matrices");
         imprimir("inversa.txt");
+
+        gettimeofday(&t_fin, NULL);
+        secs = timeval_diff(&t_fin, &t_ini);
+        printf("%.16g milliseconds\n", secs * 1000.0);
     }
     return 0;
 }
