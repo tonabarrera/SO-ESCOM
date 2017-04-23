@@ -1,7 +1,7 @@
 #include "matrices.h"
 #define SWAP(a, b) {temp = (a);(a) = (b);(b) = temp;}
 
-int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
+int sumar(float **matrizA, float **matrizB, int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++) {
         for (j = 0; j < COL; j++)
@@ -10,7 +10,7 @@ int sumar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL])
     return 0;
 }
 
-int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
+int restar(float **matrizA, float **matrizB, int resultado[COL][COL]) {
     int i, j;
     for (i = 0; i < COL; i++)
         for (j = 0; j < COL; j++){
@@ -19,7 +19,7 @@ int restar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]
     return 0;
 }
 
-int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]) {
+int trasponer(float **matriz, int traspuesta[COL][COL]) {
     int i, j;
     for(i = 0;i < COL; i++){
         for(j = 0; j < COL; j++)
@@ -28,7 +28,7 @@ int trasponer(int matriz[COL][COL], int traspuesta[COL][COL]) {
     return 0;
 }
 
-int multiplicar(int matrizA[COL][COL], int matrizB[COL][COL], int resultado[COL][COL]) {
+int multiplicar(float **matrizA, float **matrizB, int resultado[COL][COL]) {
     int i, j, k;
     int valor = 0;
     for(i = 0; i < COL; i++){
@@ -64,6 +64,15 @@ float **matriz() {
 }
 // Copiamos valores de una matriz de la forma matriz[x][x] a una matriz como **matriz
 int copiar_matriz(float **destino, int origen[COL][COL]){
+    int i, j;
+    for (i = 0; i < COL; i++) {
+       for (j = 0; j < COL; j++){
+           destino[i][j] = origen[i][j];
+       }
+    }
+    return 0;
+}
+int fcopiar_matriz(float **destino, float **origen){
     int i, j;
     for (i = 0; i < COL; i++) {
        for (j = 0; j < COL; j++){

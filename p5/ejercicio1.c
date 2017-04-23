@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include "funciones.h"
+#include "matrices.h"
 
 void *suma(void *arg);
 void *resta(void *arg);
@@ -11,7 +11,7 @@ void *inversa(void *argv);
 
 int main(int argc, char const* argv[]) {
     int numero_hilos = 5;
-    int prueba[2] = {90, 777};
+    //int prueba[2] = {90, 777};
     pthread_t *hilos = malloc(numero_hilos * sizeof(pthread_t));
     int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
@@ -38,6 +38,14 @@ int main(int argc, char const* argv[]) {
         {0, 0, 0, 0, 0, 0, 0, 0, 4, 3},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     };
+    float ***contenedor = malloc(2*sizeof(float***));
+    float **pruebaA = matriz();
+    float **pruebaB = matriz();
+    copiar_matriz(pruebaA, matrizA);
+    copiar_matriz(pruebaB, matrizB);
+    *contenedor = pruebaA;
+    *(contenedor+1)= pruebaB;
+    //printf("El elemento algo de la matriz: %lf\n", contenedor[0][1][2]);
     printf("--La matriz A es:\n");
     mostrar_matriz(matrizA);
     printf("\n");
@@ -45,19 +53,19 @@ int main(int argc, char const* argv[]) {
     mostrar_matriz(matrizB);
     printf("\n");
     printf("Ejecutando los hilos...\n");
-    pthread_create(&hilos[0], NULL, suma, prueba);
-    pthread_create(&hilos[1], NULL, resta, prueba);
-    pthread_create(&hilos[2], NULL, multiplicacion, prueba);
-    pthread_create(&hilos[3], NULL, transpuesta, prueba);
-    pthread_create(&hilos[4], NULL, inversa, prueba);
+    pthread_create(&hilos[0], NULL, suma, (void*)contenedor);
+    pthread_create(&hilos[1], NULL, resta, (void*)contenedor);
+    pthread_create(&hilos[2], NULL, multiplicacion, (void*)contenedor);
+    pthread_create(&hilos[3], NULL, transpuesta, (void*)contenedor);
+    pthread_create(&hilos[4], NULL, inversa, (void*)contenedor);
     int i;
-    for (i=0; i<numero_hilos; i++)
+    for (i=0; i < numero_hilos; i++)
         pthread_join(hilos[i], NULL);
 
     printf("\n%s\n", "Leyendo los archivos...");
     printf("\n%s\n", "--Suma de las dos matrices");
     imprimir("suma.txt");
-    printf("\n%s\n", "--Resta de las dosmatrices");
+    printf("\n%s\n", "--Resta de las dos matrices");
     imprimir("resta.txt");
     printf("\n%s\n", "--Multiplicacion de las dos matrices");
     imprimir("multiplicacion.txt");
@@ -70,38 +78,44 @@ int main(int argc, char const* argv[]) {
 }
 
 void *suma(void *arg) {
+    float ***contenedor =(float***) arg;
     int matrizSuma[COL][COL];
     printf("Realizando suma de matrices...\n");
     int ficheroSuma = abrir("suma.txt");
-    sumar(matrizA, matrizB, matrizSuma);
+    sumar(contenedor[0], contenedor[1], matrizSuma);
     escribir_matriz(ficheroSuma, matrizSuma);
     close(ficheroSuma);
     return NULL;
 }
+
 void *resta(void *arg) {
     int matrizResta[COL][COL];
+    float ***contenedor = (float***)arg;
     printf("Realizando resta de matrices...\n");
     int ficheroResta = abrir("resta.txt");
-    restar(matrizA, matrizB, matrizResta);
+    restar(contenedor[0], contenedor[1], matrizResta);
     escribir_matriz(ficheroResta, matrizResta);
     close(ficheroResta);
     return NULL;
 }
 void *multiplicacion(void *arg) {
     int producto[COL][COL];
+    float ***contenedor = (float***)arg;
     printf("Realizando multiplicacion de matrices...\n");
     int ficheroMul = abrir("multiplicacion.txt");
-    multiplicar(matrizA, matrizB, producto);
+    multiplicar(contenedor[0], contenedor[1], producto);
     escribir_matriz(ficheroMul, producto);
     close(ficheroMul);
     return NULL;
 }
 void *transpuesta(void *arg) {
     int traspuestaA[COL][COL];
-    int traspuestaB[COL][COL];printf("Realizando transpuesta de matrices...\n");
+    int traspuestaB[COL][COL];
+    float ***contenedor = (float***)arg;
+    printf("Realizando transpuesta de matrices...\n");
     int ficheroTras = abrir("traspuesta.txt");
-    trasponer(matrizA, traspuestaA);
-    trasponer(matrizB, traspuestaB);
+    trasponer(contenedor[0], traspuestaA);
+    trasponer(contenedor[1], traspuestaB);
     escribir_texto(ficheroTras, "La matriz traspuesta de A es:");
     escribir_matriz(ficheroTras, traspuestaA);
     escribir_texto(ficheroTras, "La matriz traspuesta de B es:");
@@ -110,15 +124,15 @@ void *transpuesta(void *arg) {
     return NULL;
 }
 void *inversa(void *arg) {
-    float **inversaA;
-    float **inversaB;
+    float ***contenedor = (float ***)arg;
+    float **inversaA = matriz();
+    float **inversaB = matriz();
+    fcopiar_matriz(inversaA, contenedor[0]);
+    fcopiar_matriz(inversaB, contenedor[1]);
+
     printf("Realizando inversa de matrices...\n");
     int ficheroInv = abrir("inversa.txt");
     int estado = 0;
-    inversaA = matriz();
-    inversaB = matriz();
-    copiar_matriz(inversaA, matrizA);
-    copiar_matriz(inversaB, matrizB);
     estado = gaussj(inversaA);
     if (estado != -1){
         escribir_texto(ficheroInv, "La inversa de la matriz A es:");
