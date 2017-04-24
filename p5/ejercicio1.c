@@ -11,7 +11,6 @@ void *inversa(void *argv);
 
 int main(int argc, char const* argv[]) {
     int numero_hilos = 5;
-    //int prueba[2] = {90, 777};
     pthread_t *hilos = malloc(numero_hilos * sizeof(pthread_t));
     int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
@@ -45,7 +44,6 @@ int main(int argc, char const* argv[]) {
     copiar_matriz(pruebaB, matrizB);
     *contenedor = pruebaA;
     *(contenedor+1)= pruebaB;
-    //printf("El elemento algo de la matriz: %lf\n", contenedor[0][1][2]);
     printf("--La matriz A es:\n");
     mostrar_matriz(matrizA);
     printf("\n");
@@ -74,17 +72,21 @@ int main(int argc, char const* argv[]) {
     printf("\n%s\n", "--Inversa de las dos matrices");
     imprimir("inversa.txt");
     free(hilos);
+    free(pruebaB);
+    free(pruebaA);
+    free(contenedor);
     return 0;
 }
 
 void *suma(void *arg) {
-    float ***contenedor =(float***) arg;
+    float ***contenedor = (float***) arg;
     int matrizSuma[COL][COL];
     printf("Realizando suma de matrices...\n");
     int ficheroSuma = abrir("suma.txt");
     sumar(contenedor[0], contenedor[1], matrizSuma);
     escribir_matriz(ficheroSuma, matrizSuma);
     close(ficheroSuma);
+    free(contenedor);
     return NULL;
 }
 
@@ -96,6 +98,7 @@ void *resta(void *arg) {
     restar(contenedor[0], contenedor[1], matrizResta);
     escribir_matriz(ficheroResta, matrizResta);
     close(ficheroResta);
+    free(contenedor);
     return NULL;
 }
 void *multiplicacion(void *arg) {
@@ -106,6 +109,7 @@ void *multiplicacion(void *arg) {
     multiplicar(contenedor[0], contenedor[1], producto);
     escribir_matriz(ficheroMul, producto);
     close(ficheroMul);
+    free(contenedor);
     return NULL;
 }
 void *transpuesta(void *arg) {
@@ -121,6 +125,7 @@ void *transpuesta(void *arg) {
     escribir_texto(ficheroTras, "La matriz traspuesta de B es:");
     escribir_matriz(ficheroTras, traspuestaB);
     close(ficheroTras);
+    free(contenedor);
     return NULL;
 }
 void *inversa(void *arg) {
@@ -146,5 +151,8 @@ void *inversa(void *arg) {
     } else
         escribir_texto(ficheroInv, "La matriz B es no invertible");
     close(ficheroInv);
+    free(contenedor);
+    free(inversaA);
+    free(inversaB);
     return NULL;
 }
