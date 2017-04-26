@@ -11,7 +11,6 @@ void *inversa(void *argv);
 
 int main(int argc, char const* argv[]) {
     int numero_hilos = 5;
-    //int prueba[2] = {90, 777};
     pthread_t *hilos = malloc(numero_hilos * sizeof(pthread_t));
     int matrizA[COL][COL] = {
         {1, 2, 3, 4, 5, 6, 7, 8, 9, 1},
