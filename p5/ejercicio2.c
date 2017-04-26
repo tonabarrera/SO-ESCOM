@@ -41,7 +41,6 @@ void *lectura_archivos(void *arg) {
     printf("Nana es %s Origen es %s\n", nana, origen);
     int i = 0;
     while ((archivo = readdir(directorio)) != NULL) {
-        //printf("Entro al while %i\n", i);
         if (strcmp(archivo->d_name, ".") && strcmp(archivo->d_name, "..")) {
             strcpy(nana, origen);
             strcat(nana, super->ruta);
@@ -51,6 +50,7 @@ void *lectura_archivos(void *arg) {
                     printf("Es un directorio - ");
                     pthread_t hilo;
                     char nuevo[100];
+                    char copia[100];
                     strcpy(nuevo, super->ruta);
                     strcat(nuevo, archivo->d_name);
                     strcat(nuevo, "/");
@@ -59,6 +59,9 @@ void *lectura_archivos(void *arg) {
                     siguiente->ruta= nuevo;
                     siguiente->destino = super->destino;
                     printf("Proximo direcctorio %s\n", nuevo);
+                    strcpy(copia, super->destino);
+                    strcat(copia, nuevo);
+                    mkdir(copia, 0777);
                     pthread_create(&hilo, NULL, lectura_archivos, (void*)siguiente);
                     pthread_join(hilo, NULL);
                 } else {
