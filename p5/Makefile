@@ -1,15 +1,15 @@
-codigo=ejercicio1.c
+codigo=ejercicio2.c
 extra=matrices.c
 flags=-Wall
 objeto=$(codigo:.c=.o)
 obj_extra=$(extra:.c=.o)
-exec=$(codigo:.c=)
-exec_extra=$(extra:.c=)
+exec=$(codigo:.c=.out)
+exec_extra=$(extra:.c=.out)
 
 run:$(exec)
 	./$(exec)
-$(exec):$(objeto) $(obj_extra)
-	gcc $(objeto) $(obj_extra) -lpthread -o $@
+$(exec):$(objeto)
+	gcc $(objeto) -lpthread -o $@
 $(exec_extra):$(obj_extra)
 	gcc $(obj_extra) -o $@
 $(objeto):$(codigo)
