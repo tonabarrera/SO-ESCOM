@@ -3,7 +3,10 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <string.h>
+#include <sys/types.h>
 #include <pthread.h>
+#include <fcntl.h>
+#include <unistd.h>
 struct nodo {
     pthread_t hilo;
     struct nodo *next;
@@ -66,6 +69,23 @@ void *lectura_archivos(void *arg) {
                     pthread_join(hilo, NULL);
                 } else {
                     //copiar archivos
+                    char super_archivo[100];
+                    char ruta_vieja[100];
+                    char buffer[1];
+                    strcpy(super_archivo, super->destino);
+                    strcpy(ruta_vieja, super->origen);
+                    strcat(super_archivo, super->ruta);
+                    strcat(ruta_vieja, super->ruta);
+                    strcat(super_archivo, archivo->d_name);
+                    strcat(ruta_vieja, archivo->d_name);
+                    printf("La ruta para copiar es %s y la ruta vieja es: %s\n", super_archivo, ruta_vieja);
+                    int archivo_abierto = open(ruta_vieja, O_RDONLY);
+                    int archivo_clon = open(super_archivo, O_WRONLY | O_CREAT, 0640);
+                    while (0 < read(archivo_abierto, buffer, 1))
+                        write(archivo_clon, buffer, 1);
+
+                    close(archivo_abierto);
+                    close(archivo_clon);
                 }
                 printf("\n");
             }
