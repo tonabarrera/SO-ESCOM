@@ -16,7 +16,8 @@ struct contenedor {
     char *destino;
     char *ruta;
 };
-void *lectura_archivos(void *arg);
+void *lectura_archivos(void *);
+int copiar_archivo(char *, char *, struct contenedor *, char *);
 
 int main(int argc, char const* argv[]) {
     struct contenedor *cont = malloc(sizeof(struct contenedor));
@@ -26,6 +27,7 @@ int main(int argc, char const* argv[]) {
     pthread_t hilo;
     pthread_create(&hilo, NULL, lectura_archivos, (void*)cont);
     pthread_join(hilo, NULL);
+    free(cont);
     return 0;
 }
 
@@ -34,6 +36,8 @@ void *lectura_archivos(void *arg) {
     char *ruta = malloc(sizeof(contenido->ruta));
     pthread_t *hilo;
     char *nuevo;
+    char *ruta_siguiente;
+    char *ruta_anterior;
     struct contenedor *siguiente;
     strcpy(ruta, contenido->ruta);
     char *origen = contenido->origen;
@@ -85,25 +89,15 @@ void *lectura_archivos(void *arg) {
                     pthread_create(hilo, NULL, lectura_archivos, (void*)siguiente);
                 } else {
                     printf("es un archivo");
-                    char *ruta_siguiente = malloc(sizeof(contenido->destino) + sizeof(contenido->ruta) + sizeof(archivo->d_name));
-                    char *ruta_anterior = malloc(sizeof(origen) + sizeof(contenido->ruta) + sizeof(archivo->d_name));;
-                    char buffer[1];
-                    strcpy(ruta_siguiente, contenido->destino);
-                    strcpy(ruta_anterior, contenido->origen);
-                    strcat(ruta_siguiente, contenido->ruta);
-                    strcat(ruta_anterior, contenido->ruta);
-                    strcat(ruta_siguiente, archivo->d_name);
-                    strcat(ruta_anterior, archivo->d_name);
-                    int archivo_origen = open(ruta_anterior, O_RDONLY);
-                    int archivo_copia = open(ruta_siguiente, O_WRONLY | O_CREAT, 0640);
-                    while (0 < read(archivo_origen, buffer, 1))
-                        write(archivo_copia, buffer, 1);
-                    close(archivo_origen);
-                    close(archivo_copia);
+                    ruta_siguiente = malloc(sizeof(contenido->destino) + sizeof(contenido->ruta) + sizeof(archivo->d_name));
+                    ruta_anterior = malloc(sizeof(origen) + sizeof(contenido->ruta) + sizeof(archivo->d_name));
+                    copiar_archivo(ruta_siguiente, ruta_anterior, contenido, archivo->d_name);
+                    free(ruta_siguiente);
+                    free(ruta_anterior);
                 }
-                printf("\n");
             }
             free(archivo_dir);
+            printf("\n");
         }
     }
     while (elemento != NULL) {
@@ -111,4 +105,21 @@ void *lectura_archivos(void *arg) {
         elemento = elemento->next;
     }
     return NULL;
+}
+
+int copiar_archivo(char *ruta_siguiente, char *ruta_anterior, struct contenedor *contenido, char *archivo) {
+    char buffer[1];
+    strcpy(ruta_siguiente, contenido->destino);
+    strcpy(ruta_anterior, contenido->origen);
+    strcat(ruta_siguiente, contenido->ruta);
+    strcat(ruta_anterior, contenido->ruta);
+    strcat(ruta_siguiente, archivo);
+    strcat(ruta_anterior, archivo);
+    int archivo_origen = open(ruta_anterior, O_RDONLY);
+    int archivo_copia = open(ruta_siguiente, O_WRONLY | O_CREAT, 0640);
+    while (0 < read(archivo_origen, buffer, 1))
+        write(archivo_copia, buffer, 1);
+    close(archivo_origen);
+    close(archivo_copia);
+    return 0;
 }
