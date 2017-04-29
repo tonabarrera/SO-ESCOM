@@ -21,9 +21,15 @@ int copiar_archivo(char *, char *, struct contenedor *, char *);
 
 int main(int argc, char const* argv[]) {
     struct contenedor *cont = malloc(sizeof(struct contenedor));
-    cont->origen = "prueba/";
+    cont->origen = malloc(sizeof(char)*20);
     cont->ruta = "";
-    cont->destino = "dest/";
+    cont->destino = malloc(sizeof(char)*20);
+    printf("%s\n", "Directorio origen:");
+    fgets(cont->origen, 20, stdin);
+    strcat(cont->origen, "/");
+    printf("%s\n", "Directorio destino:");
+    fgets(cont->destino, 20, stdin);
+    strcat(cont->destino, "/");
     pthread_t hilo;
     pthread_create(&hilo, NULL, lectura_archivos, (void*)cont);
     pthread_join(hilo, NULL);
