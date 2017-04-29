@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <time.h>
+#include <sys/time.h>
 #include "matrices.h"
 
 void *suma(void *arg);
@@ -9,7 +11,14 @@ void *multiplicacion(void *arg);
 void *transpuesta(void *arg);
 void *inversa(void *argv);
 
+double timeval_diff(struct timeval *a, struct timeval *b) {
+  return (double)(a->tv_sec + (double)a->tv_usec/1000000) - (double)(b->tv_sec + (double)b->tv_usec/1000000);
+}
+
 int main(int argc, char const* argv[]) {
+    struct timeval t_ini, t_fin;
+    double secs;
+    gettimeofday(&t_ini, NULL);
     int numero_hilos = 5;
     pthread_t *hilos = malloc(numero_hilos * sizeof(pthread_t));
     int matrizA[COL][COL] = {
@@ -75,6 +84,9 @@ int main(int argc, char const* argv[]) {
     free(pruebaB);
     free(pruebaA);
     free(contenedor);
+    gettimeofday(&t_fin, NULL);
+    secs = timeval_diff(&t_fin, &t_ini);
+    printf("%.16g milliseconds\n", secs * 1000.0);
     return 0;
 }
 
