@@ -98,7 +98,6 @@ void *suma(void *arg) {
     sumar(contenedor[0], contenedor[1], matrizSuma);
     escribir_matriz(ficheroSuma, matrizSuma);
     close(ficheroSuma);
-    free(contenedor);
     return NULL;
 }
 
@@ -110,7 +109,6 @@ void *resta(void *arg) {
     restar(contenedor[0], contenedor[1], matrizResta);
     escribir_matriz(ficheroResta, matrizResta);
     close(ficheroResta);
-    free(contenedor);
     return NULL;
 }
 void *multiplicacion(void *arg) {
@@ -121,7 +119,6 @@ void *multiplicacion(void *arg) {
     multiplicar(contenedor[0], contenedor[1], producto);
     escribir_matriz(ficheroMul, producto);
     close(ficheroMul);
-    free(contenedor);
     return NULL;
 }
 void *transpuesta(void *arg) {
@@ -137,7 +134,6 @@ void *transpuesta(void *arg) {
     escribir_texto(ficheroTras, "La matriz traspuesta de B es:");
     escribir_matriz(ficheroTras, traspuestaB);
     close(ficheroTras);
-    free(contenedor);
     return NULL;
 }
 void *inversa(void *arg) {
@@ -163,7 +159,6 @@ void *inversa(void *arg) {
     } else
         escribir_texto(ficheroInv, "La matriz B es no invertible");
     close(ficheroInv);
-    free(contenedor);
     free(inversaA);
     free(inversaB);
     return NULL;
