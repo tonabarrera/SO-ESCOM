@@ -2,6 +2,8 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #define TAM_MEM 27
 
 int main(int argc, char const *argv[])
