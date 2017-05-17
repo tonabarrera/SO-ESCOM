@@ -34,7 +34,6 @@ int main(void)
         {0, 0, 0, 0, 0, 0, 0, 0, 4, 3},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 4},
     };
-    float ***contenedor = malloc(2*sizeof(float***));
     float **pruebaA = matriz();
     float **pruebaB = matriz();
     copiar_matriz(pruebaA, matrizA);
@@ -48,8 +47,8 @@ int main(void)
         printf("Padre %i %i\n", getpid(), getppid());
         key_t llave = 5678;
         int shmid;
-        float ***shm;
-        size_t TAM_MEM = sizeof(contenedor);
+        struct Contenedor *shm;
+        size_t TAM_MEM = sizeof(shm);
         if ((shmid=shmget(llave, TAM_MEM, IPC_CREAT | 0666))<0) {
             perror("Error al obtener memoria compartida: shmget");
             exit(-1);
@@ -58,25 +57,9 @@ int main(void)
             perror("Error al enlazar la memoria compartida: shmat");
             exit(-1);
         }
-        contenedor = shm;
-        *contenedor = pruebaA;
-        *(contenedor+1) = pruebaB;
+        shm->estado = 90;
+        printf("Valor en padre: %i\n", shm->estado);
         wait(NULL);
-        int shmid2;
-        key_t llave2;
-        float **shm2, **matrizSuma;
-        llave = 5679;
-        size_t TAM_MEM2 = sizeof(matrizSuma);
-        if ((shmid2=shmget(llave2, TAM_MEM2, 0666))<0) {
-            perror("Error al obtener memoria compartida: shmget");
-            exit(-1);
-        }
-        if ((shm2=shmat(shmid2, NULL, 0))==(float**)-1) {
-            perror("Error al enlazar la memoria compartida:shmat");
-            exit(-1);
-        }
-        matrizSuma = *shm2;
-        exit(0);
     }
     return 0;
 }
