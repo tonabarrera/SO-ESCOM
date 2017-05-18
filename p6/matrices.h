@@ -10,7 +10,8 @@
 #include <math.h>
 #define COL 10 // Columnas y filas de la matriz
 struct Contenedor {
-	float *array;
+	float matrizUno[100];
+	float matrizDos[100];
 	int estado;
 };
 int sumar(float **, float **, int resultado[COL][COL]);
